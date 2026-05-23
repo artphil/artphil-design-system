@@ -1,0 +1,16 @@
+/* tokens/colors.css */
+
+:root {
+  --ap-color-primary: #00c389;
+  --ap-color-secondary: #c22a00;
+  --ap-color-surface: #ffffff;
+  --ap-color-text: #333333;
+  --ap-color-border: #eaeaea;
+  --ap-color-muted: #666666;
+  --ap-color-success: #28a745;
+  --ap-color-error: #dc3545;
+  --ap-color-warning: #ffc107;
+  --ap-color-info: #17a2b8;
+  --ap-color-light: #f8f9fa;
+  --ap-color-dark: #343a40;
+}

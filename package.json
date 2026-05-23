@@ -1,0 +1,23 @@
+{
+  "name": "artphil-design-system",
+  "version": "1.0.0",
+  "description": "Design System for Artphil's projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artphil/artphil-design-system.git"
+  },
+  "keywords": [
+    "artphil",
+    "ap-ds"
+  ],
+  "author": "Arthur Phillip Silva - artphil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/artphil/artphil-design-system/issues"
+  },
+  "homepage": "https://github.com/artphil/artphil-design-system#readme"
+}
