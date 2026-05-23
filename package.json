@@ -1,6 +1,6 @@
 {
   "name": "artphil-design-system",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Design System for Artphil's projects",
   "main": "index.css",
   "style": "index.css",
