@@ -1,1 +1,4 @@
+/* index.css */
+
 @import "./tokens/colors.css";
+@import "./base/index.css";

@@ -4,9 +4,11 @@
   "description": "Design System for Artphil's projects",
   "main": "index.js",
   "style": "index.css",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "files": [
+    "index.css",
+    "tokens",
+    "base"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/artphil/artphil-design-system.git"
