@@ -1,0 +1,5 @@
+/* theme/dark.css */
+
+[data-theme="dark"] {
+  --ap-color-primary: #60a5fa;
+}
