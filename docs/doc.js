@@ -21,15 +21,24 @@ function toggleTheme() {
 /* Funções auxiliares */
 
 function renderColors() {
+  const ignore = [DS_PREFIX + "color-surface"];
   const container = document.getElementById("colors-grid");
   const colors = getCSSVariables(DS_PREFIX + "color");
 
   container.innerHTML = "";
 
   colors.forEach(({ name, value }) => {
+    if (isIgnoredToken(name, ignore)) return;
     const card = createColorCard(name, value);
     container.appendChild(card);
   });
+}
+
+function isIgnoredToken(token, ignoreList) {
+  for (const ignore of ignoreList) {
+    if (token.startsWith(ignore)) return true;
+  }
+  return false;
 }
 
 function getCSSVariables(prefix) {

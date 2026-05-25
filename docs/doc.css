@@ -1,26 +1,18 @@
 :root {
-  --color-bg: #ffffff;
   --color-text: #111111;
-  --color-surface: #f9f9f9;
   --color-border: #dddddd;
+  --border-radius: 8px;
 }
 
 [data-theme="dark"] {
-  --color-bg: #111111;
   --color-text: #ffffff;
-  --color-surface: #1a1a1a;
   --color-border: #333333;
-}
-
-h1,
-h2 {
-  margin-top: 32px;
 }
 
 body {
   font-family: Arial, sans-serif;
   color: var(--color-text);
-  background: var(--color-bg);
+  background: var(--ap-color-surface);
 }
 
 header {
@@ -41,12 +33,12 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
 }
 
 .color-card {
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   border: 1px solid var(--color-border);
 }
@@ -58,8 +50,7 @@ main {
 .color-info {
   padding: 8px;
   font-size: 12px;
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--ap-color-surface-elevated);
 }
 
 .component-row {
@@ -72,16 +63,23 @@ main {
 .box {
   padding: 16px;
   border: 1px dashed var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--ap-color-surface-sunken);
+  border-radius: var(--border-radius);
+}
+
+.title {
+  margin-top: 32px;
+}
+
+.title h2 {
+  margin-left: 16px;
 }
 
 footer {
   margin-top: 40px;
   padding: 16px;
   border-top: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
+  background: var(--ap-color-surface-elevated);
   width: 100%;
   text-align: center;
   font-size: 12px;

@@ -1,10 +1,10 @@
 /* tokens/colors.css */
 
 :root {
+  /* base colors */
   --ap-color-primary: #00c389;
   --ap-color-secondary: #c22a00;
-  --ap-color-surface: #ffffff;
-  --ap-color-text: #333333;
+
   --ap-color-border: #eaeaea;
   --ap-color-muted: #666666;
   --ap-color-success: #28a745;
@@ -13,4 +13,18 @@
   --ap-color-info: #17a2b8;
   --ap-color-light: #f8f9fa;
   --ap-color-dark: #343a40;
+
+  --ap-color-white-light: #ffffff;
+  --ap-color-white-medium: #f5f7fa;
+  --ap-color-white-dark: #e9edf2;
+
+  --ap-color-black-light: #2a2a2a;
+  --ap-color-black-medium: #1e1e1e;
+  --ap-color-black-dark: #121212;
+
+  /* composed colors */
+  --ap-color-surface: var(--ap-color-white-medium);
+  --ap-color-surface-elevated: var(--ap-color-white-light);
+  --ap-color-surface-sunken: var(--ap-color-white-dark);
+  --ap-color-text: #333333;
 }
