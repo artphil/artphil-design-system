@@ -1,0 +1,11 @@
+/* tokens/spacing.css */
+
+:root {
+  --ap-spacing-xs: 4px;
+  --ap-spacing-sm: 8px;
+  --ap-spacing-md: 16px;
+  --ap-spacing-lg: 24px;
+  --ap-spacing-xl: 32px;
+
+  --ap-border-radius: 8px;
+}

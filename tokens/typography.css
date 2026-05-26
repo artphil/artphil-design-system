@@ -1,0 +1,10 @@
+/* tokens/typography.css */
+
+:root {
+  --ap-font-family: Arial, sans-serif;
+  --ap-font-size-xs: 12px;
+  --ap-font-size-sm: 14px;
+  --ap-font-size-md: 16px;
+  --ap-font-size-lg: 18px;
+  --ap-font-size-xl: 20px;
+}

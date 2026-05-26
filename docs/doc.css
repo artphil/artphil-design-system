@@ -1,17 +1,8 @@
-:root {
-  --color-text: #111111;
-  --color-border: #dddddd;
-  --border-radius: 8px;
-}
-
-[data-theme="dark"] {
-  --color-text: #ffffff;
-  --color-border: #333333;
-}
+/* doc.css */
 
 body {
   font-family: Arial, sans-serif;
-  color: var(--color-text);
+  color: var(--ap-color-text);
   background: var(--ap-color-surface);
 }
 
@@ -40,7 +31,7 @@ main {
 .color-card {
   border-radius: var(--border-radius);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--ap-color-divider);
 }
 
 .color-preview {
@@ -62,7 +53,7 @@ main {
 
 .box {
   padding: 16px;
-  border: 1px dashed var(--color-border);
+  border: 1px dashed var(--ap-color-divider);
   background: var(--ap-color-surface-sunken);
   border-radius: var(--border-radius);
 }
@@ -78,7 +69,7 @@ main {
 footer {
   margin-top: 40px;
   padding: 16px;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--ap-color-divider);
   background: var(--ap-color-surface-elevated);
   width: 100%;
   text-align: center;
