@@ -6,6 +6,7 @@
   --ap-color-surface-sunken: var(--ap-color-black-light);
 
   --ap-color-text: var(--ap-color-white-medium);
+  --ap-color-text-contrast: var(--ap-color-black-dark);
 
   --ap-color-divider: var(--ap-color-divider-dark);
 }

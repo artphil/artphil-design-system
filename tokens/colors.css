@@ -3,26 +3,25 @@
 :root {
   /* base colors */
   --ap-color-primary: #00c389;
-  --ap-color-secondary: #c22a00;
+  --ap-color-secondary: #6c757d;
+  --ap-color-accent: #c22a00;
 
   --ap-color-muted: #666666;
-  --ap-color-success: #28a745;
-  --ap-color-error: #dc3545;
-  --ap-color-warning: #ffc107;
-  --ap-color-info: #17a2b8;
-  --ap-color-light: #f8f9fa;
-  --ap-color-dark: #343a40;
+  --ap-color-success: #22c55e;
+  --ap-color-error: #ef4444;
+  --ap-color-warning: #f59e0b;
+  --ap-color-info: #0ea5e9;
 
   --ap-color-divider-light: rgba(0, 0, 0, 0.22);
   --ap-color-divider-dark: rgba(255, 255, 255, 0.22);
 
-  --ap-color-white-light: #ffffff;
-  --ap-color-white-medium: #f5f7fa;
-  --ap-color-white-dark: #e9edf2;
+  --ap-color-white-light: #fafbfc;
+  --ap-color-white-medium: #f3f5f7;
+  --ap-color-white-dark: #e6eaee;
 
-  --ap-color-black-light: #2a2a2a;
-  --ap-color-black-medium: #1e1e1e;
-  --ap-color-black-dark: #121212;
+  --ap-color-black-light: #2a2f35;
+  --ap-color-black-medium: #1c1f24;
+  --ap-color-black-dark: #121417;
 
   /* dynamic colors */
   --ap-color-surface: var(--ap-color-white-medium);
@@ -30,6 +29,7 @@
   --ap-color-surface-sunken: var(--ap-color-white-dark);
 
   --ap-color-text: var(--ap-color-black-medium);
+  --ap-color-text-contrast: var(--ap-color-white-light);
 
   --ap-color-divider: var(--ap-color-divider-light);
 }

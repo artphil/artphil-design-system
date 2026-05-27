@@ -21,7 +21,7 @@ function toggleTheme() {
 /* Funções auxiliares */
 
 function renderColors() {
-  const ignore = [DS_PREFIX + "color-surface"];
+  const ignore = ["color-surface", "color-text", "color-divider"];
   const container = document.getElementById("colors-grid");
   const colors = getCSSVariables(DS_PREFIX + "color");
 
@@ -36,7 +36,7 @@ function renderColors() {
 
 function isIgnoredToken(token, ignoreList) {
   for (const ignore of ignoreList) {
-    if (token.startsWith(ignore)) return true;
+    if (token.startsWith(DS_PREFIX + ignore)) return true;
   }
   return false;
 }
@@ -54,7 +54,7 @@ function getCSSVariables(prefix) {
     }
   }
 
-  return vars;
+  return vars; // .sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function createColorCard(name, value) {

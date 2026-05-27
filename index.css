@@ -1,5 +1,5 @@
 /* index.css */
 
-@import "./tokens/colors.css";
+@import "./tokens/index.css";
 @import "./base/index.css";
 @import "./theme/index.css";
