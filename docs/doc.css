@@ -56,6 +56,9 @@ strong {
 }
 
 .box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ap-spacing-md);
   padding: var(--ap-spacing-md);
   border: 1px dashed var(--ap-color-divider);
   background: var(--ap-color-surface-sunken);
@@ -68,6 +71,10 @@ strong {
 
 .title h2 {
   margin-left: var(--ap-spacing-md);
+}
+
+h3.title {
+  margin: 0;
 }
 
 footer {

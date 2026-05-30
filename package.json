@@ -8,7 +8,8 @@
     "index.css",
     "tokens",
     "base",
-    "theme"
+    "theme",
+    "components"
   ],
   "repository": {
     "type": "git",

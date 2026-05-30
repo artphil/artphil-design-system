@@ -1,0 +1,94 @@
+/* components/button.css */
+
+.ap-button {
+  --ap-btn-bg: var(--ap-color-surface);
+  --ap-btn-text: inherit;
+  --ap-btn-size: var(--ap-spacing-sm);
+
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: var(--ap-border-radius);
+  padding: var(--ap-btn-size);
+
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    filter 0.15s ease;
+}
+
+/* intent */
+.ap-primary {
+  --ap-btn-bg: var(--ap-color-primary);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+.ap-secondary {
+  --ap-btn-bg: var(--ap-color-secondary);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+.ap-accent {
+  --ap-btn-bg: var(--ap-color-accent);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+.ap-success {
+  --ap-btn-bg: var(--ap-color-success);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+.ap-error {
+  --ap-btn-bg: var(--ap-color-error);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+.ap-warning {
+  --ap-btn-bg: var(--ap-color-warning);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+.ap-info {
+  --ap-btn-bg: var(--ap-color-info);
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+
+/* variants */
+.ap-filled {
+  background: var(--ap-btn-bg, var(--ap-color-surface));
+  border-color: var(--ap-btn-bg, var(--ap-color-surface));
+  color: var(--ap-btn-text, inherit);
+}
+
+.ap-outlined {
+  background: transparent;
+  color: var(--ap-btn-bg, currentColor);
+  border-color: var(--ap-btn-bg, currentColor);
+}
+
+/* states */
+.ap-button.ap-filled:hover {
+  filter: brightness(0.95);
+}
+
+.ap-button.ap-outlined:hover {
+  background: color-mix(in srgb, var(--ap-btn-bg), transparent 85%);
+}
+
+.ap-button.ap-filled:active {
+  filter: brightness(0.9);
+}
+
+.ap-button.ap-outlined:active {
+  background: color-mix(in srgb, var(--ap-btn-bg), transparent 80%);
+}
+
+.ap-button:disabled {
+  --ap-btn-bg: var(--ap-color-muted);
+  --ap-btn-text: var(--ap-color-text-muted);
+
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
+}
