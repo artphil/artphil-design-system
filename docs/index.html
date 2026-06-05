@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <title>Artphil Design System</title>
 
-    <!-- Desenvolvimento -->
-    <!-- <link rel="stylesheet" href="../index.css" /> -->
-
-    <!-- Produção (comente o de cima) -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/artphil-design-system/index.css"
-    />
+    <script>
+      const isDev =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1";
+      const cssUrl = isDev
+        ? "../index.css"
+        : "https://unpkg.com/artphil-design-system/index.css";
+      document.write(`<link rel="stylesheet" href="${cssUrl}" />`);
+    </script>
 
     <link rel="stylesheet" href="./doc.css" />
   </head>
