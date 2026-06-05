@@ -9,6 +9,8 @@
   border: 2px solid transparent;
   border-radius: var(--ap-border-radius);
   padding: var(--ap-btn-size);
+  font-size: var(--ap-font-size-md);
+  color: var(--ap-btn-text);
 
   cursor: pointer;
   transition:
