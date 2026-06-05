@@ -4,6 +4,8 @@ body {
   font-family: Arial, sans-serif;
   color: var(--ap-color-text);
   background: var(--ap-color-surface);
+  font-size: var(--ap-font-size-md);
+  font-weight: var(--ap-font-weight-normal);
 }
 
 header {
@@ -28,7 +30,7 @@ strong {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: var(--ap-spacing-md);
 }
 
