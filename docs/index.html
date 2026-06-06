@@ -19,14 +19,16 @@
 
   <body>
     <header>
-      <h1 class="title">Artphil Design System</h1>
-      <button onclick="toggleTheme()">Toggle Theme</button>
+      <h1 class="ap-heading1">Artphil Design System</h1>
+      <button class="ap-button ap-primary ap-filled" onclick="toggleTheme()">
+        Toggle Theme
+      </button>
     </header>
 
     <main>
       <!-- ================= CORES ================= -->
       <div class="section">
-        <h2 class="title">Cores</h2>
+        <h2 class="ap-heading2">Cores</h2>
         <div class="box">
           <div class="grid" id="colors-grid">
             <div class="color-card">
@@ -45,29 +47,37 @@
 
       <!-- ================= TIPOGRAFIA ================= -->
       <div class="section">
-        <h2 class="title">Tipografia</h2>
-
+        <h2 class="ap-heading2">Tipografia</h2>
         <div class="box">
-          <h1>Heading 1</h1>
-          <h2>Heading 2</h2>
-          <h3>Heading 3</h3>
-          <p>Texto padrão do sistema</p>
-          <small>Texto pequeno</small>
+          <h3 class="ap-heading3">Tokens</h3>
+          <div class="box" id="typography-grid"></div>
+
+          <h3 class="ap-heading3">Components</h3>
+          <div class="box">
+            <p class="ap-heading1">Heading 1</p>
+            <p class="ap-heading2">Heading 2</p>
+            <p class="ap-heading3">Heading 3</p>
+            <p class="ap-lead">Lead</p>
+            <p class="ap-kicker">Kicker</p>
+            <p class="ap-body">Body</p>
+            <p class="ap-note">Note</p>
+            <p class="ap-caption">Caption</p>
+          </div>
         </div>
       </div>
 
       <!-- ================= BOTÕES ================= -->
       <div class="section">
-        <h2 class="title">Botões</h2>
+        <h2 class="ap-heading2">Botões</h2>
 
         <div class="box">
-          <h3 class="title">Default</h3>
+          <h3 class="ap-heading3">Default</h3>
 
           <div class="component-row">
             <button class="ap-button">Default</button>
             <button class="ap-button" disabled>Disabled</button>
           </div>
-          <h3 class="title">Filled</h3>
+          <h3 class="ap-heading3">Filled</h3>
           <div class="component-row">
             <button class="ap-button ap-primary ap-filled">Primary</button>
             <button class="ap-button ap-primary ap-filled" disabled>
@@ -80,7 +90,7 @@
             <button class="ap-button ap-warning ap-filled">Warning</button>
             <button class="ap-button ap-info ap-filled">Info</button>
           </div>
-          <h3 class="title">Outlined</h3>
+          <h3 class="ap-heading3">Outlined</h3>
           <div class="component-row">
             <button class="ap-button ap-primary ap-outlined">Primary</button>
             <button class="ap-button ap-primary ap-outlined" disabled>
@@ -100,7 +110,7 @@
 
       <!-- ================= CARDS ================= -->
       <div class="section">
-        <h2 class="title">Cards</h2>
+        <h2 class="ap-heading2">Cards</h2>
 
         <div class="box">
           <div class="component-row">
@@ -119,7 +129,7 @@
 
       <!-- ================= FORMULÁRIOS ================= -->
       <div class="section">
-        <h2 class="title">Formulários</h2>
+        <h2 class="ap-heading2">Formulários</h2>
 
         <div class="box">
           <div class="component-row">
@@ -135,7 +145,7 @@
 
       <!-- ================= UTILITÁRIOS ================= -->
       <div class="section">
-        <h2 class="title">Utilitários</h2>
+        <h2 class="ap-heading2">Utilitários</h2>
 
         <div class="box">
           <div class="component-row">
@@ -146,7 +156,12 @@
         </div>
       </div>
     </main>
-    <footer>by <strong>Artphil</strong></footer>
+    <footer>
+      by
+      <a class="ap-link" href="https://artphil.github.io" target="_blank"
+        ><strong>Artphil</strong></a
+      >
+    </footer>
     <script src="./doc.js"></script>
   </body>
 </html>

@@ -50,6 +50,23 @@ strong {
   background: var(--ap-color-surface-elevated);
 }
 
+.typography-card {
+  border-radius: var(--ap-border-radius);
+  overflow: hidden;
+  border: 1px solid var(--ap-color-divider);
+}
+
+.typography-preview {
+  padding: var(--ap-spacing-sm);
+  background: var(--ap-color-surface);
+}
+
+.typography-info {
+  padding: var(--ap-spacing-sm);
+  font-size: var(--ap-font-size-sm);
+  background: var(--ap-color-surface-elevated);
+}
+
 .component-row {
   display: flex;
   gap: var(--ap-spacing-md);
