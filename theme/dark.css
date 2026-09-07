@@ -9,4 +9,6 @@
   --ap-color-text-contrast: var(--ap-color-black-dark);
 
   --ap-color-divider: var(--ap-color-divider-dark);
+
+  color-scheme: dark;
 }

@@ -1,7 +1,6 @@
 /* components/button.css */
 
 .ap-button {
-  --ap-btn-bg: var(--ap-color-surface);
   --ap-btn-text: inherit;
   --ap-btn-size: var(--ap-spacing-sm);
 
@@ -9,6 +8,7 @@
   border: 2px solid transparent;
   border-radius: var(--ap-border-radius);
   padding: var(--ap-btn-size);
+  font-family: var(--ap-font-family);
   font-size: var(--ap-font-size-md);
   color: var(--ap-btn-text);
 
@@ -70,12 +70,21 @@
 }
 
 /* states */
+.ap-button:focus-visible {
+  outline: 2px solid var(--ap-btn-bg, var(--ap-color-text));
+  outline-offset: 2px;
+}
+
 .ap-button.ap-filled:hover {
   filter: brightness(0.95);
 }
 
 .ap-button.ap-outlined:hover {
-  background: color-mix(in srgb, var(--ap-btn-bg), transparent 85%);
+  background: color-mix(
+    in srgb,
+    var(--ap-btn-bg, currentColor),
+    transparent 85%
+  );
 }
 
 .ap-button.ap-filled:active {
@@ -83,7 +92,11 @@
 }
 
 .ap-button.ap-outlined:active {
-  background: color-mix(in srgb, var(--ap-btn-bg), transparent 80%);
+  background: color-mix(
+    in srgb,
+    var(--ap-btn-bg, currentColor),
+    transparent 80%
+  );
 }
 
 .ap-button:disabled {
@@ -91,6 +104,5 @@
   --ap-btn-text: var(--ap-color-text-muted);
 
   cursor: not-allowed;
-  pointer-events: none;
   opacity: 0.6;
 }

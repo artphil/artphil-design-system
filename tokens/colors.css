@@ -34,4 +34,6 @@
   --ap-color-text-contrast: var(--ap-color-white-light);
 
   --ap-color-divider: var(--ap-color-divider-light);
+
+  color-scheme: light;
 }

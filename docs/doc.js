@@ -9,9 +9,6 @@ const COLOR_ORDER = [
   "warning",
   "error",
   "info",
-  "surface",
-  "text",
-  "divider",
 ];
 
 /* Fluxo principal */
@@ -36,7 +33,15 @@ function toggleTheme() {
 /* Funções auxiliares */
 
 function renderColors() {
-  const ignore = ["color-surface", "color-text", "color-divider"];
+  // Aliases dinâmicos: já aparecem representados pelas cores base
+  const ignore = [
+    "color-surface",
+    "color-surface-elevated",
+    "color-surface-sunken",
+    "color-text",
+    "color-text-contrast",
+    "color-divider",
+  ];
   const container = document.getElementById("colors-grid");
   const colors = getCSSVariables(DS_PREFIX + "color", COLOR_ORDER);
 
@@ -50,10 +55,7 @@ function renderColors() {
 }
 
 function isIgnoredToken(token, ignoreList) {
-  for (const ignore of ignoreList) {
-    if (token.startsWith(DS_PREFIX + ignore)) return true;
-  }
-  return false;
+  return ignoreList.some((ignore) => token === DS_PREFIX + ignore);
 }
 
 function getCSSVariables(prefix, order = null) {
@@ -134,7 +136,6 @@ function renderTypography() {
   const fonts = getCSSVariables(DS_PREFIX + "font-size", TYPOGRAPHY_ORDER);
 
   container.innerHTML = "";
-  container.style.flexDirection = "column";
 
   fonts.forEach(({ name, value }) => {
     const card = createTypographyCard(name, value);
