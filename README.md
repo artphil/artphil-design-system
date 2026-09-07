@@ -14,8 +14,29 @@ npm install artphil-design-system
 import "artphil-design-system";
 ```
 
-O entrypoint (`index.css`) carrega, nesta ordem: `tokens`, `base` (reset),
-`theme` e `components`.
+O entrypoint carrega `tokens`, `theme` e `components`, nesta ordem.
+
+### Reset
+
+O reset **não** vem no entrypoint, porque mexe em elementos que são da
+aplicação e não do design system: zera margens de tudo, remove marcadores de
+lista e sublinhado de links. Quem quiser opta explicitamente:
+
+```js
+import "artphil-design-system/base/reset.css";
+import "artphil-design-system";
+```
+
+### Importar partes isoladas
+
+```js
+import "artphil-design-system/tokens"; // só os tokens
+import "artphil-design-system/tokens/colors.css"; // só as cores
+import "artphil-design-system/components/button.css";
+```
+
+Os subpaths disponíveis são `tokens`, `base`, `theme` e `components` — cada um
+como pasta (carrega o `index.css` dela) ou arquivo individual.
 
 ## Tema
 

@@ -2,8 +2,24 @@
   "name": "artphil-design-system",
   "version": "1.4.0",
   "description": "Design System for Artphil's projects",
+  "exports": {
+    ".": "./index.css",
+    "./index.css": "./index.css",
+    "./tokens": "./tokens/index.css",
+    "./tokens/*.css": "./tokens/*.css",
+    "./base": "./base/index.css",
+    "./base/*.css": "./base/*.css",
+    "./theme": "./theme/index.css",
+    "./theme/*.css": "./theme/*.css",
+    "./components": "./components/index.css",
+    "./components/*.css": "./components/*.css",
+    "./package.json": "./package.json"
+  },
   "main": "index.css",
   "style": "index.css",
+  "sideEffects": [
+    "*.css"
+  ],
   "files": [
     "index.css",
     "tokens",

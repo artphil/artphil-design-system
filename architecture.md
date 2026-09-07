@@ -162,3 +162,70 @@ It was a legibility one: at 1.42:1 the label was effectively unreadable.
 **`--ap-color-text-muted` got its meaning back.** It had been serving as "label
 of a disabled button"; it now means secondary text on a surface, and meets AA
 in that role (5.09:1 light, 5.88:1 dark).
+
+---
+
+## ADR-003 — Explicit entry points, and a reset the consumer opts into
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v1.4.0 ·
+**Breaking**
+
+### Context
+
+The package had no `exports` field, so every file in it was reachable and
+nothing was contractual: a consumer deep-importing `components/button.css` was
+relying on a path that happened to exist. There was no `sideEffects` field
+either.
+
+More importantly, `index.css` pulled in `base/reset.css`. That reset is not
+scoped to the design system — it zeroes margins on every element, strips
+markers from every list and underlines from every link in the host
+application. A project that wanted the tokens got an opinion about its own
+markup along with them.
+
+### Decision
+
+Declare the entry points, and take the reset out of the default import.
+
+```json
+"exports": {
+  ".": "./index.css",
+  "./tokens": "./tokens/index.css",
+  "./tokens/*.css": "./tokens/*.css",
+  "./base/*.css": "./base/*.css",
+  ...
+},
+"sideEffects": ["*.css"]
+```
+
+Each layer is reachable as a folder (its `index.css`) or as an individual
+file. `main` and `style` stay for tools that do not read `exports`.
+
+The reset now needs an explicit import:
+
+```js
+import "artphil-design-system/base/reset.css";
+import "artphil-design-system";
+```
+
+### On `sideEffects`
+
+The reflex value for this field is `false`, and it would be wrong here. It
+tells a bundler that a module can be dropped when nothing imports a binding
+from it — which is every CSS file, since CSS exports no bindings. Declaring
+`["*.css"]` says the opposite: importing these files _is_ the point.
+
+### Consequences
+
+**This is breaking, in two ways.** An app that relied on the bundled reset
+loses it silently — nothing errors, the layout just shifts. And `exports`
+closes off paths that used to resolve by accident; anything outside the four
+layers now fails with `ERR_PACKAGE_PATH_NOT_EXPORTED`. Both warrant a major
+version.
+
+**The documentation page is now a consumer like any other.** It opts into the
+reset explicitly, which doubles as the usage example.
+
+**Components stand on their own.** They do not rely on the reset:
+`components/typography.css` sets its own `margin: 0`, and `.ap-button` sets
+its own padding, border and font.

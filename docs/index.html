@@ -8,10 +8,10 @@
       const isDev =
         window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1";
-      const cssUrl = isDev
-        ? "../index.css"
-        : "https://unpkg.com/artphil-design-system/index.css";
-      document.write(`<link rel="stylesheet" href="${cssUrl}" />`);
+      const ds = isDev ? ".." : "https://unpkg.com/artphil-design-system";
+      // o reset é opt-in: esta página quer os defaults de fluxo
+      document.write(`<link rel="stylesheet" href="${ds}/base/reset.css" />`);
+      document.write(`<link rel="stylesheet" href="${ds}/index.css" />`);
     </script>
 
     <link rel="stylesheet" href="./doc.css" />
