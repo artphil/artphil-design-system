@@ -33,8 +33,8 @@
   --ap-color-text-muted-light: #626970;
   --ap-color-text-muted-dark: #949ba2;
 
-  --ap-color-divider-light: rgba(0, 0, 0, 0.22);
-  --ap-color-divider-dark: rgba(255, 255, 255, 0.22);
+  --ap-color-divider-light: rgb(0 0 0 / 22%);
+  --ap-color-divider-dark: rgb(255 255 255 / 22%);
 
   --ap-color-white-light: #fafbfc;
   --ap-color-white-medium: #f3f5f7;

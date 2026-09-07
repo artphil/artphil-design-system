@@ -118,13 +118,13 @@ dynamic alias changes when the theme is toggled, the other two do not.
 ### Context
 
 `.ap-button:disabled` combined muted colors with `opacity: 0.6`. Opacity
-composites the background *and* the label against the surface, which pulls both
+composites the background _and_ the label against the surface, which pulls both
 toward it and collapses the distance between them. The published pair
 (`#666666` background, `#999999` label) measures 2.02:1 on its own — and only
 **1.42:1** once the opacity is applied.
 
 The ceiling is structural: at 60% opacity, even pure black text on a pure white
-background lands at 5.90:1 in the light theme. Any pair that still *looks*
+background lands at 5.90:1 in the light theme. Any pair that still _looks_
 disabled stays close to 2:1. Lowering the opacity to 0.9 was not enough either —
 a plain disabled button still measured 4.15:1.
 
@@ -133,7 +133,7 @@ a plain disabled button still measured 4.15:1.
 Drop `opacity` from the disabled state and let the muted colors do the work.
 `--ap-color-muted` becomes an ordinary intent color with a per-theme pair
 (ADR-001), and the label comes from the muted text token, except on a filled
-button — where the muted color *is* the background:
+button — where the muted color _is_ the background:
 
 ```css
 .ap-button:disabled {

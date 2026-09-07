@@ -93,7 +93,27 @@ Combine `.ap-button` com uma intenção e uma variante:
 
 ## Documentação
 
-A página de exemplos vive em [`docs/`](docs/index.html).
+A página de exemplos vive em [`docs/`](docs/index.html). As decisões de
+arquitetura estão em [`architecture.md`](architecture.md).
+
+## Desenvolvimento
+
+```sh
+npm install
+npm run check    # formatação, lint e guard de tokens
+npm run format   # aplica o prettier
+```
+
+O `check` roda três coisas, e é o que a CI e o `prepublishOnly` executam:
+
+- **`format:check`** — prettier, no padrão que o repositório já seguia;
+- **`lint:css`** — stylelint, configurado para defender a arquitetura: cor
+  literal e `px` cru são proibidos em `base/`, `theme/` e `components/`, onde
+  tudo deve passar por token, e toda custom property precisa do prefixo `ap-`;
+- **`check:tokens`** — guard próprio, sem dependências: verifica que toda
+  referência `var()` aponta para uma propriedade definida (referência quebrada
+  não gera erro nenhum em CSS, a declaração some em silêncio) e que o contrato
+  de contraste dos ADRs continua valendo nos dois temas.
 
 ## Licença
 

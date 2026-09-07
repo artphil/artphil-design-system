@@ -1,0 +1,28 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "custom-property-pattern": "^ap-[a-z0-9]+(-[a-z0-9]+)*$",
+    "import-notation": "string",
+    "value-keyword-case": [
+      "lower",
+      { "ignoreProperties": ["--ap-font-family"] }
+    ],
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null
+  },
+  "overrides": [
+    {
+      "files": ["base/**/*.css", "theme/**/*.css", "components/**/*.css"],
+      "rules": {
+        "color-no-hex": true,
+        "declaration-property-unit-allowed-list": {
+          "padding": [],
+          "margin": [],
+          "gap": [],
+          "font-size": [],
+          "border-radius": []
+        }
+      }
+    }
+  ]
+}

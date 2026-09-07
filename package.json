@@ -11,6 +11,14 @@
     "theme",
     "components"
   ],
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:css": "stylelint \"**/*.css\"",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "check": "npm run format:check && npm run lint:css && npm run check:tokens",
+    "prepublishOnly": "npm run check"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/artphil/artphil-design-system.git"
@@ -24,5 +32,10 @@
   "bugs": {
     "url": "https://github.com/artphil/artphil-design-system/issues"
   },
-  "homepage": "https://github.com/artphil/artphil-design-system#readme"
+  "homepage": "https://github.com/artphil/artphil-design-system#readme",
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "stylelint": "^17.15.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
 }
