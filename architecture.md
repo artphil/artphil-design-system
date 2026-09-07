@@ -99,13 +99,66 @@ against `:root`'s (0,1,0), and wins. The correct consumption pattern is now:
 }
 ```
 
-**Semantic colors stay outside this contract.** `success`, `error`, `warning`
-and `info` keep a single value, tuned to the balance point between the two
-themes — which imposes the **3.89:1** ceiling derived from the conflict
-described above. That meets AA for large text and UI components (3:1), but not
-the 4.5 required for body-sized text. It is a deliberate debt, tracked as item
-1b in `debts.md`; the way out is extending this ADR to all four.
+**Every intent color follows the contract.** The pairing was first applied to
+`primary`, `secondary` and `accent`, then extended to `success`, `error`,
+`warning`, `info` and `muted` — a single value for those was capped at
+**3.89:1** by the same conflict described above, short of AA for body-sized
+text. With the pair, the worst case across the whole palette is 4.88:1.
 
 **Three swatches per brand color in the docs.** The documentation page now
 lists `primary`, `primary-light` and `primary-dark`. That is informative — the
 dynamic alias changes when the theme is toggled, the other two do not.
+
+---
+
+## ADR-002 — A disabled control carries its own colors, not opacity
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v1.4.0
+
+### Context
+
+`.ap-button:disabled` combined muted colors with `opacity: 0.6`. Opacity
+composites the background *and* the label against the surface, which pulls both
+toward it and collapses the distance between them. The published pair
+(`#666666` background, `#999999` label) measures 2.02:1 on its own — and only
+**1.42:1** once the opacity is applied.
+
+The ceiling is structural: at 60% opacity, even pure black text on a pure white
+background lands at 5.90:1 in the light theme. Any pair that still *looks*
+disabled stays close to 2:1. Lowering the opacity to 0.9 was not enough either —
+a plain disabled button still measured 4.15:1.
+
+### Decision
+
+Drop `opacity` from the disabled state and let the muted colors do the work.
+`--ap-color-muted` becomes an ordinary intent color with a per-theme pair
+(ADR-001), and the label comes from the muted text token, except on a filled
+button — where the muted color *is* the background:
+
+```css
+.ap-button:disabled {
+  --ap-btn-bg: var(--ap-color-muted);
+  --ap-btn-text: var(--ap-color-text-muted);
+
+  cursor: not-allowed;
+}
+
+.ap-button.ap-filled:disabled {
+  --ap-btn-text: var(--ap-color-text-contrast);
+}
+```
+
+Disabled now reads between 5.09:1 and 8.61:1 depending on variant and theme.
+
+### Consequences
+
+**The disabled affordance is carried by hue, not by fading.** A grey button
+next to a colored one, plus `cursor: not-allowed`, is what signals the state.
+
+**WCAG exempts disabled controls** from contrast minimums (1.4.3, "incidental:
+inactive user interface components"), so none of this was a compliance failure.
+It was a legibility one: at 1.42:1 the label was effectively unreadable.
+
+**`--ap-color-text-muted` got its meaning back.** It had been serving as "label
+of a disabled button"; it now means secondary text on a surface, and meets AA
+in that role (5.09:1 light, 5.88:1 dark).

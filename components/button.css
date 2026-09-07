@@ -104,5 +104,10 @@
   --ap-btn-text: var(--ap-color-text-muted);
 
   cursor: not-allowed;
-  opacity: 0.6;
+}
+
+/* on a filled button the muted color is the background, so the label needs
+   the contrasting text instead of the muted one */
+.ap-button.ap-filled:disabled {
+  --ap-btn-text: var(--ap-color-text-contrast);
 }

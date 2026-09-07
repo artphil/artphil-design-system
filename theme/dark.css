@@ -5,6 +5,14 @@
   --ap-color-secondary: var(--ap-color-secondary-dark);
   --ap-color-accent: var(--ap-color-accent-dark);
 
+  --ap-color-success: var(--ap-color-success-dark);
+  --ap-color-error: var(--ap-color-error-dark);
+  --ap-color-warning: var(--ap-color-warning-dark);
+  --ap-color-info: var(--ap-color-info-dark);
+
+  --ap-color-muted: var(--ap-color-muted-dark);
+  --ap-color-text-muted: var(--ap-color-text-muted-dark);
+
   --ap-color-surface: var(--ap-color-black-medium);
   --ap-color-surface-elevated: var(--ap-color-black-dark);
   --ap-color-surface-sunken: var(--ap-color-black-light);

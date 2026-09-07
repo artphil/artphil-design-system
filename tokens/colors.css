@@ -12,14 +12,26 @@
   --ap-color-accent-light: #c22a00;
   --ap-color-accent-dark: #ff6035;
 
-  /* semantic colors — a single mid tone, legible in both themes */
-  --ap-color-success: #188d44;
-  --ap-color-error: #ed2828;
-  --ap-color-warning: #aa6e07;
-  --ap-color-info: #0b83b8;
+  /* semantic colors — same per-theme pairing as the brand colors */
+  --ap-color-success-light: #14713a;
+  --ap-color-success-dark: #22c55e;
 
-  --ap-color-muted: #666666;
-  --ap-color-text-muted: #999999;
+  --ap-color-error-light: #c81e1e;
+  --ap-color-error-dark: #f25555;
+
+  --ap-color-warning-light: #8f5a05;
+  --ap-color-warning-dark: #f59e0b;
+
+  --ap-color-info-light: #0369a1;
+  --ap-color-info-dark: #0ea5e9;
+
+  /* neutral colors — muted is the intent color of a disabled control,
+     text-muted is secondary text sitting on a surface */
+  --ap-color-muted-light: #565d64;
+  --ap-color-muted-dark: #aab2bb;
+
+  --ap-color-text-muted-light: #626970;
+  --ap-color-text-muted-dark: #949ba2;
 
   --ap-color-divider-light: rgba(0, 0, 0, 0.22);
   --ap-color-divider-dark: rgba(255, 255, 255, 0.22);
@@ -36,6 +48,14 @@
   --ap-color-primary: var(--ap-color-primary-light);
   --ap-color-secondary: var(--ap-color-secondary-light);
   --ap-color-accent: var(--ap-color-accent-light);
+
+  --ap-color-success: var(--ap-color-success-light);
+  --ap-color-error: var(--ap-color-error-light);
+  --ap-color-warning: var(--ap-color-warning-light);
+  --ap-color-info: var(--ap-color-info-light);
+
+  --ap-color-muted: var(--ap-color-muted-light);
+  --ap-color-text-muted: var(--ap-color-text-muted-light);
 
   --ap-color-surface: var(--ap-color-white-medium);
   --ap-color-surface-elevated: var(--ap-color-white-light);

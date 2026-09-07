@@ -38,14 +38,20 @@ Marca — um valor por tema, com o sufixo nomeando o tema (mesma convenção de
 `--ap-color-primary`, `--ap-color-secondary` e `--ap-color-accent` resolvem
 para o par certo conforme o tema ativo.
 
-Semânticas — valor único, legível nos dois temas: `--ap-color-success`,
-`--ap-color-error`, `--ap-color-warning`, `--ap-color-info`.
+Semânticas — mesmo par: `--ap-color-success-light` / `-dark`,
+`--ap-color-error-light` / `-dark`, `--ap-color-warning-light` / `-dark`,
+`--ap-color-info-light` / `-dark`.
 
-Neutras de apoio: `--ap-color-muted`, `--ap-color-text-muted`.
+Neutras — `--ap-color-muted-light` / `-dark` é a cor de intent de um controle
+desabilitado; `--ap-color-text-muted-light` / `-dark` é texto secundário sobre
+a superfície.
 
-Ao sobrescrever uma cor de marca, forneça **os dois** valores do par: o
-`-light` precisa ser escuro o bastante para carregar texto claro, e o `-dark`
-claro o bastante para carregar texto escuro.
+Todas seguem o mesmo contrato: um alias sem sufixo (`--ap-color-success`, e
+assim por diante) resolve para o valor do tema ativo. Ao sobrescrever qualquer
+uma delas, forneça **os dois** valores do par — o `-light` precisa ser escuro o
+bastante para carregar texto claro, e o `-dark` claro o bastante para carregar
+texto escuro. Sobrescrever só o alias não funciona no tema escuro; o porquê
+está em [`architecture.md`](architecture.md).
 
 Escalas neutras: `--ap-color-white-light|medium|dark`,
 `--ap-color-black-light|medium|dark`,
