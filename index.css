@@ -1,5 +1,7 @@
 /* index.css */
 
+@layer tokens, base, theme, components;
+
 @import "./tokens/index.css";
 @import "./theme/index.css";
 @import "./components/index.css";

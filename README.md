@@ -16,6 +16,24 @@ import "artphil-design-system";
 
 O entrypoint carrega `tokens`, `theme` e `components`, nesta ordem.
 
+### Camadas
+
+Todo CSS da lib vive em `@layer`, na ordem `tokens, base, theme, components`.
+Cada arquivo declara a própria camada, então importar
+`artphil-design-system/components/button.css` isolado continua caindo na
+camada certa.
+
+Na prática isso significa que **o CSS do seu projeto vence o da lib sem
+precisar de especificidade**: estilo fora de camada tem precedência sobre
+estilo em camada, qualquer que seja o seletor.
+
+```css
+/* vence .ap-button--filled, mesmo sendo um seletor mais fraco */
+.meu-botao {
+  border-radius: 0;
+}
+```
+
 ### Reset
 
 O reset **não** vem no entrypoint, porque mexe em elementos que são da
@@ -104,13 +122,13 @@ e `--ap-border-radius` (8px).
 Combine `.ap-button` com uma intenção e uma variante:
 
 ```html
-<button class="ap-button ap-primary ap-filled">Primary</button>
-<button class="ap-button ap-accent ap-outlined">Accent</button>
+<button class="ap-button ap-button--primary ap-button--filled">Primary</button>
+<button class="ap-button ap-button--accent ap-button--outlined">Accent</button>
 ```
 
-- Intenções: `.ap-primary`, `.ap-secondary`, `.ap-accent`, `.ap-success`,
-  `.ap-error`, `.ap-warning`, `.ap-info`
-- Variantes: `.ap-filled`, `.ap-outlined`
+- Intenções: `.ap-button--primary`, `--secondary`, `--accent`, `--success`,
+  `--error`, `--warning`, `--info`
+- Variantes: `.ap-button--filled`, `.ap-button--outlined`
 
 ## Documentação
 

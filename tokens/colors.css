@@ -1,70 +1,72 @@
 /* tokens/colors.css */
 
-:root {
-  /* brand colors — the suffix names the theme the value belongs to, as in
-     --ap-color-divider-light; the theme picks one under "dynamic colors" */
-  --ap-color-primary-light: #007a55;
-  --ap-color-primary-dark: #00c389;
+@layer tokens {
+  :root {
+    /* brand colors — the suffix names the theme the value belongs to, as in
+       --ap-color-divider-light; the theme picks one under "dynamic colors" */
+    --ap-color-primary-light: #007a55;
+    --ap-color-primary-dark: #00c389;
 
-  --ap-color-secondary-light: #5c636a;
-  --ap-color-secondary-dark: #8e969d;
+    --ap-color-secondary-light: #5c636a;
+    --ap-color-secondary-dark: #8e969d;
 
-  --ap-color-accent-light: #c22a00;
-  --ap-color-accent-dark: #ff6035;
+    --ap-color-accent-light: #c22a00;
+    --ap-color-accent-dark: #ff6035;
 
-  /* semantic colors — same per-theme pairing as the brand colors */
-  --ap-color-success-light: #14713a;
-  --ap-color-success-dark: #22c55e;
+    /* semantic colors — same per-theme pairing as the brand colors */
+    --ap-color-success-light: #14713a;
+    --ap-color-success-dark: #22c55e;
 
-  --ap-color-error-light: #c81e1e;
-  --ap-color-error-dark: #f25555;
+    --ap-color-error-light: #c81e1e;
+    --ap-color-error-dark: #f25555;
 
-  --ap-color-warning-light: #8f5a05;
-  --ap-color-warning-dark: #f59e0b;
+    --ap-color-warning-light: #8f5a05;
+    --ap-color-warning-dark: #f59e0b;
 
-  --ap-color-info-light: #0369a1;
-  --ap-color-info-dark: #0ea5e9;
+    --ap-color-info-light: #0369a1;
+    --ap-color-info-dark: #0ea5e9;
 
-  /* neutral colors — muted is the intent color of a disabled control,
-     text-muted is secondary text sitting on a surface */
-  --ap-color-muted-light: #565d64;
-  --ap-color-muted-dark: #aab2bb;
+    /* neutral colors — muted is the intent color of a disabled control,
+       text-muted is secondary text sitting on a surface */
+    --ap-color-muted-light: #565d64;
+    --ap-color-muted-dark: #aab2bb;
 
-  --ap-color-text-muted-light: #626970;
-  --ap-color-text-muted-dark: #949ba2;
+    --ap-color-text-muted-light: #626970;
+    --ap-color-text-muted-dark: #949ba2;
 
-  --ap-color-divider-light: rgb(0 0 0 / 22%);
-  --ap-color-divider-dark: rgb(255 255 255 / 22%);
+    --ap-color-divider-light: rgb(0 0 0 / 22%);
+    --ap-color-divider-dark: rgb(255 255 255 / 22%);
 
-  --ap-color-white-light: #fafbfc;
-  --ap-color-white-medium: #f3f5f7;
-  --ap-color-white-dark: #e6eaee;
+    --ap-color-white-light: #fafbfc;
+    --ap-color-white-medium: #f3f5f7;
+    --ap-color-white-dark: #e6eaee;
 
-  --ap-color-black-light: #2a2f35;
-  --ap-color-black-medium: #1c1f24;
-  --ap-color-black-dark: #121417;
+    --ap-color-black-light: #2a2f35;
+    --ap-color-black-medium: #1c1f24;
+    --ap-color-black-dark: #121417;
 
-  /* dynamic colors */
-  --ap-color-primary: var(--ap-color-primary-light);
-  --ap-color-secondary: var(--ap-color-secondary-light);
-  --ap-color-accent: var(--ap-color-accent-light);
+    /* dynamic colors */
+    --ap-color-primary: var(--ap-color-primary-light);
+    --ap-color-secondary: var(--ap-color-secondary-light);
+    --ap-color-accent: var(--ap-color-accent-light);
 
-  --ap-color-success: var(--ap-color-success-light);
-  --ap-color-error: var(--ap-color-error-light);
-  --ap-color-warning: var(--ap-color-warning-light);
-  --ap-color-info: var(--ap-color-info-light);
+    --ap-color-success: var(--ap-color-success-light);
+    --ap-color-error: var(--ap-color-error-light);
+    --ap-color-warning: var(--ap-color-warning-light);
+    --ap-color-info: var(--ap-color-info-light);
 
-  --ap-color-muted: var(--ap-color-muted-light);
-  --ap-color-text-muted: var(--ap-color-text-muted-light);
+    --ap-color-muted: var(--ap-color-muted-light);
+    --ap-color-text-muted: var(--ap-color-text-muted-light);
 
-  --ap-color-surface: var(--ap-color-white-medium);
-  --ap-color-surface-elevated: var(--ap-color-white-light);
-  --ap-color-surface-sunken: var(--ap-color-white-dark);
+    --ap-color-surface: var(--ap-color-white-medium);
+    --ap-color-surface-elevated: var(--ap-color-white-light);
+    --ap-color-surface-sunken: var(--ap-color-white-dark);
 
-  --ap-color-text: var(--ap-color-black-medium);
-  --ap-color-text-contrast: var(--ap-color-white-light);
+    --ap-color-text: var(--ap-color-black-medium);
+    --ap-color-text-contrast: var(--ap-color-white-light);
 
-  --ap-color-divider: var(--ap-color-divider-light);
+    --ap-color-divider: var(--ap-color-divider-light);
 
-  color-scheme: light;
+    color-scheme: light;
+  }
 }

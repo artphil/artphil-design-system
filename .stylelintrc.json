@@ -5,7 +5,9 @@
     "import-notation": "string",
     "value-keyword-case": [
       "lower",
-      { "ignoreProperties": ["--ap-font-family"] }
+      {
+        "ignoreProperties": ["--ap-font-family"]
+      }
     ],
     "custom-property-empty-line-before": null,
     "declaration-empty-line-before": null
@@ -21,7 +23,8 @@
           "gap": [],
           "font-size": [],
           "border-radius": []
-        }
+        },
+        "selector-class-pattern": "^ap-[a-z0-9]+(-[a-z0-9]+)*(--[a-z0-9]+(-[a-z0-9]+)*)?$"
       }
     }
   ]

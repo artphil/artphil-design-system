@@ -229,3 +229,104 @@ reset explicitly, which doubles as the usage example.
 **Components stand on their own.** They do not rely on the reset:
 `components/typography.css` sets its own `margin: 0`, and `.ap-button` sets
 its own padding, border and font.
+
+---
+
+## ADR-004 — Every file declares its own cascade layer
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v2.0.0 ·
+**Breaking**
+
+### Context
+
+The cascade was decided by declaration order inside a file. `.ap-button` and
+`.ap-filled` both scored (0,1,0), so the filled background won only because it
+appeared later in `components/button.css`. Reordering the file — or splitting
+it — would have changed rendering with nothing to signal it.
+
+The consuming side had the mirror problem. A project overriding a button had to
+outbid the library on specificity; `specs.md` records exactly that friction,
+with the Café BH project escalating to `.ap-button.<class>:hover` and
+`filter: none` to undo a hover.
+
+### Decision
+
+`@layer tokens, base, theme, components`, with the order fixed in `index.css`,
+and **each file wrapping its own content in its layer** rather than the entry
+point assigning layers through `@import ... layer()`.
+
+The difference matters for deep imports: a consumer importing
+`artphil-design-system/components/button.css` on its own still lands in the
+`components` layer. Had the assignment
+lived in the entry point, that file would arrive unlayered — and unlayered
+styles beat layered ones, so a partial import would silently outrank the rest
+of the system.
+
+### The reset had to move with it
+
+This is the trap that shaped the decision. Unlayered normal declarations take
+precedence over layered ones, whatever the specificity. Leaving
+`base/reset.css` outside a layer while components sat inside one would have let
+`* { padding: 0 }` — specificity (0,0,0) — beat `.ap-button { padding: … }`.
+Every button would have lost its padding. The reset is in `@layer base` for
+that reason, not for tidiness.
+
+### Consequences
+
+**A consumer no longer needs specificity to win.** Any unlayered rule in the
+project beats any rule in the library. That is the intended override path, and
+it is now documented in the README.
+
+**Layer order survives import order.** A layer keeps the position of its first
+declaration, so importing the reset before or after the entry point yields the
+same result: `base` always precedes `components`.
+
+**Baseline moves to 2022.** `@layer` landed in all evergreen browsers in early
+2022 — still older than `color-mix()`, which the buttons already require.
+
+---
+
+## ADR-005 — Button modifiers carry the block name
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v2.0.0 ·
+**Breaking**
+
+### Context
+
+Intent and variant were global class names: `.ap-primary`, `.ap-filled`,
+`.ap-error`. Three problems. They applied to any element, so the library was
+styling markup it knew nothing about. They were generic enough to collide with
+a project's own `.ap-error`. And they did not say what they modified — nothing
+in `.ap-filled` connects it to a button.
+
+They were also inconsistent with the rest of the library, where class names are
+self-contained (`.ap-heading1`, `.ap-button`).
+
+### Decision
+
+BEM modifiers naming their block:
+
+```html
+<button class="ap-button ap-button--primary ap-button--filled">Primary</button>
+```
+
+Enforced by stylelint rather than by convention —
+`selector-class-pattern` requires `ap-block` or `ap-block--modifier` across
+`base/`, `theme/` and `components/`.
+
+### Consequences
+
+**The markup is more verbose.** Three classes where there were three shorter
+ones. Accepted: the modifier is now self-describing, and a reader does not have
+to know that `.ap-filled` only means something next to `.ap-button`.
+
+**State rules lost a level of specificity**, from `.ap-button.ap-filled:hover`
+(0,3,0) to `.ap-button--filled:hover` (0,2,0). Still above the (0,1,0) of the
+variant rule it overrides, and ADR-004 removed the reason to inflate
+specificity in the first place.
+
+**It surfaced a bug in the token guard.** Its regex for a custom property
+declaration, `(--[\w-]+)\s*:`, matched inside the new selectors:
+`.ap-button--filled:hover` registered `--filled` as a defined property. A
+`var(--filled)` typo would have passed the check. The regex now requires a
+declaration to start after `{`, `;` or a line break.

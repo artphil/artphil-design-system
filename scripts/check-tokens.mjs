@@ -49,7 +49,8 @@ function ruleBody(css, selector) {
 
 function declarations(body) {
   const out = new Map();
-  for (const [, name, value] of body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)) {
+  const declaration = /(?:^|[{;])\s*(--[\w-]+)\s*:\s*([^;]+);/gm;
+  for (const [, name, value] of body.matchAll(declaration)) {
     out.set(name, value.trim());
   }
   return out;
@@ -109,7 +110,9 @@ const sources = cssFiles().map((file) => ({
 // 1. every var() reference resolves to a property defined somewhere
 const defined = new Set();
 for (const { css } of sources) {
-  for (const [, name] of css.matchAll(/(--[\w-]+)\s*:/g)) defined.add(name);
+  for (const [, name] of css.matchAll(/(?:^|[{;])\s*(--[\w-]+)\s*:/gm)) {
+    defined.add(name);
+  }
 }
 for (const { file, css } of sources) {
   for (const [, name] of css.matchAll(/var\(\s*(--[\w-]+)/g)) {
@@ -189,14 +192,15 @@ for (const name of intents) {
 
     if (filled < AA) {
       fail(
-        `${theme}: filled .ap-${name} is ${filled.toFixed(2)}:1 against ` +
-          `--ap-color-text-contrast (needs ${AA})`,
+        `${theme}: --ap-color-${name} as a filled background is ` +
+          `${filled.toFixed(2)}:1 against --ap-color-text-contrast ` +
+          `(needs ${AA})`,
       );
     }
     if (outlined < AA) {
       fail(
-        `${theme}: outlined .ap-${name} is ${outlined.toFixed(2)}:1 against ` +
-          `--ap-color-surface (needs ${AA})`,
+        `${theme}: --ap-color-${name} as outlined text is ` +
+          `${outlined.toFixed(2)}:1 against --ap-color-surface (needs ${AA})`,
       );
     }
 
@@ -207,8 +211,8 @@ for (const name of intents) {
       const ratio = contrast(color, alt);
       if (ratio < AA) {
         warn(
-          `${theme}: outlined .ap-${name} is ${ratio.toFixed(2)}:1 on ` +
-            `--ap-color-${surfaceName}`,
+          `${theme}: --ap-color-${name} as outlined text is ` +
+            `${ratio.toFixed(2)}:1 on --ap-color-${surfaceName}`,
         );
       }
     }

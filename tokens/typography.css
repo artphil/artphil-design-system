@@ -1,17 +1,19 @@
 /* tokens/typography.css */
 
-:root {
-  /* base values */
-  --ap-font-family: Arial, sans-serif;
+@layer tokens {
+  :root {
+    /* base values */
+    --ap-font-family: Arial, sans-serif;
 
-  --ap-font-size-md: 16px;
+    --ap-font-size-md: 16px;
 
-  --ap-font-weight-normal: 400;
-  --ap-font-weight-bold: 700;
+    --ap-font-weight-normal: 400;
+    --ap-font-weight-bold: 700;
 
-  /* dynamic values */
-  --ap-font-size-xs: calc(var(--ap-font-size-md) * 0.75);
-  --ap-font-size-sm: calc(var(--ap-font-size-md) * 0.875);
-  --ap-font-size-lg: calc(var(--ap-font-size-md) * 1.25);
-  --ap-font-size-xl: calc(var(--ap-font-size-md) * 1.5);
+    /* dynamic values */
+    --ap-font-size-xs: calc(var(--ap-font-size-md) * 0.75);
+    --ap-font-size-sm: calc(var(--ap-font-size-md) * 0.875);
+    --ap-font-size-lg: calc(var(--ap-font-size-md) * 1.25);
+    --ap-font-size-xl: calc(var(--ap-font-size-md) * 1.5);
+  }
 }
