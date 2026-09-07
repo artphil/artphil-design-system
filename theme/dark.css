@@ -1,6 +1,10 @@
 /* theme/dark.css */
 
 [data-theme="dark"] {
+  --ap-color-primary: var(--ap-color-primary-dark);
+  --ap-color-secondary: var(--ap-color-secondary-dark);
+  --ap-color-accent: var(--ap-color-accent-dark);
+
   --ap-color-surface: var(--ap-color-black-medium);
   --ap-color-surface-elevated: var(--ap-color-black-dark);
   --ap-color-surface-sunken: var(--ap-color-black-light);

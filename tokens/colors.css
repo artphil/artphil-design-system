@@ -1,18 +1,25 @@
 /* tokens/colors.css */
 
 :root {
-  /* base colors */
-  --ap-color-primary: #00c389;
-  --ap-color-secondary: #6c757d;
-  --ap-color-accent: #c22a00;
+  /* brand colors — the suffix names the theme the value belongs to, as in
+     --ap-color-divider-light; the theme picks one under "dynamic colors" */
+  --ap-color-primary-light: #007a55;
+  --ap-color-primary-dark: #00c389;
+
+  --ap-color-secondary-light: #5c636a;
+  --ap-color-secondary-dark: #8e969d;
+
+  --ap-color-accent-light: #c22a00;
+  --ap-color-accent-dark: #ff6035;
+
+  /* semantic colors — a single mid tone, legible in both themes */
+  --ap-color-success: #188d44;
+  --ap-color-error: #ed2828;
+  --ap-color-warning: #aa6e07;
+  --ap-color-info: #0b83b8;
 
   --ap-color-muted: #666666;
   --ap-color-text-muted: #999999;
-
-  --ap-color-success: #22c55e;
-  --ap-color-error: #ef4444;
-  --ap-color-warning: #f59e0b;
-  --ap-color-info: #0ea5e9;
 
   --ap-color-divider-light: rgba(0, 0, 0, 0.22);
   --ap-color-divider-dark: rgba(255, 255, 255, 0.22);
@@ -26,6 +33,10 @@
   --ap-color-black-dark: #121417;
 
   /* dynamic colors */
+  --ap-color-primary: var(--ap-color-primary-light);
+  --ap-color-secondary: var(--ap-color-secondary-light);
+  --ap-color-accent: var(--ap-color-accent-light);
+
   --ap-color-surface: var(--ap-color-white-medium);
   --ap-color-surface-elevated: var(--ap-color-white-light);
   --ap-color-surface-sunken: var(--ap-color-white-dark);

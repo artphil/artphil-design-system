@@ -32,9 +32,20 @@ Todos os tokens usam o prefixo `--ap-`.
 
 ### Cores
 
-Base: `--ap-color-primary`, `--ap-color-secondary`, `--ap-color-accent`,
-`--ap-color-success`, `--ap-color-error`, `--ap-color-warning`,
-`--ap-color-info`, `--ap-color-muted`, `--ap-color-text-muted`.
+Marca — um valor por tema, com o sufixo nomeando o tema (mesma convenção de
+`--ap-color-divider-light`): `--ap-color-primary-light` / `-dark`,
+`--ap-color-secondary-light` / `-dark`, `--ap-color-accent-light` / `-dark`.
+`--ap-color-primary`, `--ap-color-secondary` e `--ap-color-accent` resolvem
+para o par certo conforme o tema ativo.
+
+Semânticas — valor único, legível nos dois temas: `--ap-color-success`,
+`--ap-color-error`, `--ap-color-warning`, `--ap-color-info`.
+
+Neutras de apoio: `--ap-color-muted`, `--ap-color-text-muted`.
+
+Ao sobrescrever uma cor de marca, forneça **os dois** valores do par: o
+`-light` precisa ser escuro o bastante para carregar texto claro, e o `-dark`
+claro o bastante para carregar texto escuro.
 
 Escalas neutras: `--ap-color-white-light|medium|dark`,
 `--ap-color-black-light|medium|dark`,
