@@ -58,16 +58,46 @@ function declarations(body) {
 
 /* Custom property resolution */
 
-function resolve(value, map, seen = new Set()) {
-  const match = value.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*([\s\S]+))?\)$/);
-  if (!match) return value;
+// Splits on the commas that are not inside parentheses.
+function splitArguments(value) {
+  const parts = [];
+  let depth = 0;
+  let current = "";
+  for (const char of value) {
+    if (char === "(") depth++;
+    else if (char === ")") depth--;
+    if (char === "," && depth === 0) {
+      parts.push(current.trim());
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  parts.push(current.trim());
+  return parts;
+}
 
-  const [, name, fallback] = match;
+function resolve(value, map, theme, seen = new Set()) {
+  value = value.trim();
+
+  const lightDark = value.match(/^light-dark\(([\s\S]*)\)$/);
+  if (lightDark) {
+    const [onLight, onDark] = splitArguments(lightDark[1]);
+    const picked = theme === "dark" ? onDark : onLight;
+    return picked === undefined ? null : resolve(picked, map, theme, seen);
+  }
+
+  const reference = value.match(/^var\(([\s\S]*)\)$/);
+  if (!reference) return value;
+
+  const [name, ...rest] = splitArguments(reference[1]);
+  const fallback = rest.length > 0 ? rest.join(", ") : null;
+
   if (seen.has(name)) return null; // reference cycle
   seen.add(name);
 
-  if (map.has(name)) return resolve(map.get(name), map, seen);
-  return fallback ? resolve(fallback.trim(), map, seen) : null;
+  if (map.has(name)) return resolve(map.get(name), map, theme, seen);
+  return fallback === null ? null : resolve(fallback, map, theme, seen);
 }
 
 /* WCAG contrast */
@@ -125,21 +155,16 @@ const tokenCss = sources
   .filter(({ file }) => file.startsWith("tokens/"))
   .map(({ css }) => css)
   .join("\n");
-const darkCss = sources.find(({ file }) => file === "theme/dark.css").css;
+// One declaration map. The theme is not a second set of declarations any
+// more: it is which half of light-dark() gets picked while resolving.
+const tokens = declarations(ruleBody(tokenCss, ":root"));
 
-const light = declarations(ruleBody(tokenCss, ":root"));
-const dark = new Map([
-  ...light,
-  ...declarations(ruleBody(darkCss, '[data-theme="dark"]')),
-]);
+const themes = ["light", "dark"];
 
-const themes = [
-  ["light", light],
-  ["dark", dark],
-];
-
-const read = (map, name) => {
-  const value = map.has(name) ? resolve(map.get(name), map) : null;
+const read = (theme, name) => {
+  const value = tokens.has(name)
+    ? resolve(tokens.get(name), tokens, theme)
+    : null;
   return isHex(value) ? value : null;
 };
 
@@ -150,9 +175,10 @@ const SCALES = ["divider", "white", "black"];
 
 const pairs = [
   ...new Set(
-    [...light.keys()]
+    [...tokens.keys()]
       .filter(
-        (n) => n.endsWith("-light") && light.has(n.replace(/-light$/, "-dark")),
+        (n) =>
+          n.endsWith("-light") && tokens.has(n.replace(/-light$/, "-dark")),
       )
       .map((n) => n.replace(/^--ap-color-/, "").replace(/-light$/, "")),
   ),
@@ -162,14 +188,18 @@ const pairs = [
 // an intent color, so it is checked against the surface only (see below)
 const intents = pairs.filter((n) => n !== "text-muted");
 
-const darkOverrides = declarations(ruleBody(darkCss, '[data-theme="dark"]'));
 for (const name of pairs) {
   const alias = `--ap-color-${name}`;
-  if (!light.has(alias)) {
+  if (!tokens.has(alias)) {
     fail(`tokens/colors.css: ${alias}-light/-dark exist but ${alias} does not`);
+    continue;
   }
-  if (!darkOverrides.has(alias)) {
-    fail(`theme/dark.css: ${alias} is not remapped to ${alias}-dark`);
+  // the alias has to actually land on each half, not merely mention them
+  for (const theme of themes) {
+    const half = read(theme, `${alias}-${theme}`);
+    if (half && read(theme, alias) !== half) {
+      fail(`tokens/colors.css: ${alias} does not resolve to ${alias}-${theme}`);
+    }
   }
 }
 
@@ -177,10 +207,10 @@ for (const name of pairs) {
 const rows = [];
 for (const name of intents) {
   const row = { name };
-  for (const [theme, map] of themes) {
-    const color = read(map, `--ap-color-${name}`);
-    const onColor = read(map, "--ap-color-text-contrast");
-    const surface = read(map, "--ap-color-surface");
+  for (const theme of themes) {
+    const color = read(theme, `--ap-color-${name}`);
+    const onColor = read(theme, "--ap-color-text-contrast");
+    const surface = read(theme, "--ap-color-surface");
     if (!color || !onColor || !surface) {
       fail(`tokens: --ap-color-${name} does not resolve to a color (${theme})`);
       continue;
@@ -206,7 +236,7 @@ for (const name of intents) {
 
     // outside the contract: the other two surfaces a control can sit on
     for (const surfaceName of ["surface-elevated", "surface-sunken"]) {
-      const alt = read(map, `--ap-color-${surfaceName}`);
+      const alt = read(theme, `--ap-color-${surfaceName}`);
       if (!alt) continue;
       const ratio = contrast(color, alt);
       if (ratio < AA) {
@@ -221,10 +251,10 @@ for (const name of intents) {
 }
 
 // 5. text tokens against the surface they sit on
-for (const [theme, map] of themes) {
-  const surface = read(map, "--ap-color-surface");
+for (const theme of themes) {
+  const surface = read(theme, "--ap-color-surface");
   for (const token of ["--ap-color-text", "--ap-color-text-muted"]) {
-    const color = read(map, token);
+    const color = read(theme, token);
     if (!color || !surface) continue;
     const ratio = contrast(color, surface);
     if (ratio < AA) {

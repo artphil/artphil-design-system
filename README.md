@@ -58,11 +58,19 @@ como pasta (carrega o `index.css` dela) ou arquivo individual.
 
 ## Tema
 
-O tema claro é o padrão. O escuro é ativado pelo atributo `data-theme` — em
-geral no `<html>`:
+O tema segue a preferência do sistema operacional por padrão. O atributo
+`data-theme` é o override explícito:
 
 ```html
 <html data-theme="dark"></html>
+<html data-theme="light"></html>
+```
+
+Ele funciona em qualquer elemento, não só no `<html>` — `color-scheme` é
+herdado, então uma subárvore pode ter tema próprio:
+
+```html
+<section data-theme="dark">…</section>
 ```
 
 ## Tokens

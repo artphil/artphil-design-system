@@ -1,0 +1,13 @@
+/* theme/scheme.css */
+
+@layer theme {
+  /* tokens/colors.css already follows the operating system; these are the
+     explicit overrides, and they cascade to any subtree, not just :root */
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+}

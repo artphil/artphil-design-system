@@ -25,9 +25,13 @@ function renderComponents() {
 
 function toggleTheme() {
   const html = document.documentElement;
-  const current = html.getAttribute("data-theme");
-  const next = current === "dark" ? "light" : "dark";
-  html.setAttribute("data-theme", next);
+  // sem atributo, o tema em vigor é o do sistema
+  const current =
+    html.getAttribute("data-theme") ??
+    (window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light");
+  html.setAttribute("data-theme", current === "dark" ? "light" : "dark");
 }
 
 /* Funções auxiliares */
@@ -69,6 +73,8 @@ function getCSSVariables(prefix, order = null) {
       let value = styles.getPropertyValue(name).trim();
       if (value.includes("calc(")) {
         value = resolveCalcValue(value);
+      } else if (value.includes("light-dark(")) {
+        value = resolveColorValue(value);
       }
       vars.push({ name, value });
     }
@@ -107,6 +113,27 @@ function resolveCalcValue(value) {
   const resolved = getComputedStyle(el).fontSize;
   document.body.removeChild(el);
   return resolved;
+}
+
+// light-dark() só resolve quando usado numa propriedade de verdade: o valor
+// computado da custom property ainda traz a função inteira
+function resolveColorValue(value) {
+  const el = document.createElement("div");
+  el.style.color = value;
+  document.body.appendChild(el);
+  const resolved = getComputedStyle(el).color;
+  document.body.removeChild(el);
+  return rgbToHex(resolved);
+}
+
+function rgbToHex(color) {
+  const parts = color.match(/\d+/g);
+  if (!parts || parts.length < 3) return color;
+  const hex = parts
+    .slice(0, 3)
+    .map((n) => Number(n).toString(16).padStart(2, "0"))
+    .join("");
+  return `#${hex}`;
 }
 
 function createColorCard(name, value) {

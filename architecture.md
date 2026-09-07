@@ -330,3 +330,84 @@ declaration, `(--[\w-]+)\s*:`, matched inside the new selectors:
 `.ap-button--filled:hover` registered `--filled` as a defined property. A
 `var(--filled)` typo would have passed the check. The regex now requires a
 declaration to start after `{`, `;` or a line break.
+
+---
+
+## ADR-006 — The theme follows the system, through `light-dark()`
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v2.0.0
+
+### Context
+
+The dark theme only existed as `[data-theme="dark"]`. A user whose system was
+set to dark got the light theme until something set that attribute, and the
+library offered no way to react to `prefers-color-scheme` on its own.
+
+The obvious fix duplicates the token list:
+
+```css
+[data-theme="dark"] {
+  /* 20 declarations */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* the same 20 declarations */
+  }
+}
+```
+
+Two copies of every dynamic token, kept in sync by hand. CSS has no way to
+reuse a declaration block, so any variation on this shape pays that cost.
+
+### Decision
+
+Move the choice into the value instead of the selector. Each dynamic token
+names both halves once, and `light-dark()` picks between them based on the
+element's used `color-scheme`:
+
+```css
+:root {
+  color-scheme: light dark;
+
+  --ap-color-primary: light-dark(
+    var(--ap-color-primary-light),
+    var(--ap-color-primary-dark)
+  );
+}
+```
+
+`color-scheme: light dark` is what makes the system preference apply. The theme
+files shrink to the two overrides that force a choice:
+
+```css
+[data-theme="light"] {
+  color-scheme: light;
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+```
+
+`theme/dark.css` became `theme/scheme.css`, since it no longer describes one
+theme.
+
+### Consequences
+
+**Zero duplication.** Adding a token means writing its two halves once. There
+is no second list that can drift.
+
+**Themes now nest.** `color-scheme` is inherited, so `data-theme` works on any
+element, not just `:root`. A dark panel inside a light page is just an
+attribute — which the previous approach could also do, but only for the tokens
+that had been remapped.
+
+**Custom properties no longer hold a resolved color.** `light-dark()` is
+evaluated where the value is _used_, so reading `--ap-color-primary` with
+`getComputedStyle` returns the function, not a hex. The documentation page had
+to resolve colors through a probe element, the way it already did for `calc()`.
+
+**Baseline moves to 2024.** `light-dark()` shipped in Firefox 120, Chrome 123
+and Safari 17.5 — newer than `color-mix()` and `@layer`, which the library
+already required. This raises the floor, and it was accepted because the
+library has one consumer.
