@@ -19,6 +19,13 @@ import { fileURLToPath } from "node:url";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const AA = 4.5;
 
+// WCAG 1.4.11: the boundary of a user interface component is not text and
+// answers to 3:1, not 4.5
+const AA_NON_TEXT = 3;
+
+// a control can sit on any of these, so the worst one is the one that counts
+const SURFACES = ["surface", "surface-elevated", "surface-sunken"];
+
 /* CSS reading */
 
 function cssFiles() {
@@ -184,9 +191,14 @@ const pairs = [
   ),
 ].filter((n) => !SCALES.includes(n));
 
-// text-muted is paired like the rest, but it is text on a surface rather than
-// an intent color, so it is checked against the surface only (see below)
-const intents = pairs.filter((n) => n !== "text-muted");
+// paired like the rest, but neither is an intent color: text-muted is text on
+// a surface, and border is a non-text boundary. Both are checked further down.
+const NON_TEXT = ["border"];
+const TEXT_ON_SURFACE = ["text-muted"];
+
+const intents = pairs.filter(
+  (n) => !NON_TEXT.includes(n) && !TEXT_ON_SURFACE.includes(n),
+);
 
 for (const name of pairs) {
   const alias = `--ap-color-${name}`;
@@ -204,20 +216,26 @@ for (const name of pairs) {
 }
 
 // 4. the contrast contract
+function worstSurface(theme, color) {
+  return SURFACES.map((name) => [name, read(theme, `--ap-color-${name}`)])
+    .filter(([, value]) => value)
+    .map(([name, value]) => [name, contrast(color, value)])
+    .reduce((worst, current) => (current[1] < worst[1] ? current : worst));
+}
+
 const rows = [];
 for (const name of intents) {
   const row = { name };
   for (const theme of themes) {
     const color = read(theme, `--ap-color-${name}`);
     const onColor = read(theme, "--ap-color-text-contrast");
-    const surface = read(theme, "--ap-color-surface");
-    if (!color || !onColor || !surface) {
+    if (!color || !onColor) {
       fail(`tokens: --ap-color-${name} does not resolve to a color (${theme})`);
       continue;
     }
 
     const filled = contrast(color, onColor);
-    const outlined = contrast(color, surface);
+    const [surfaceName, outlined] = worstSurface(theme, color);
     row[theme] = { filled, outlined };
 
     if (filled < AA) {
@@ -230,30 +248,43 @@ for (const name of intents) {
     if (outlined < AA) {
       fail(
         `${theme}: --ap-color-${name} as outlined text is ` +
-          `${outlined.toFixed(2)}:1 against --ap-color-surface (needs ${AA})`,
+          `${outlined.toFixed(2)}:1 on --ap-color-${surfaceName} ` +
+          `(needs ${AA})`,
       );
-    }
-
-    // outside the contract: the other two surfaces a control can sit on
-    for (const surfaceName of ["surface-elevated", "surface-sunken"]) {
-      const alt = read(theme, `--ap-color-${surfaceName}`);
-      if (!alt) continue;
-      const ratio = contrast(color, alt);
-      if (ratio < AA) {
-        warn(
-          `${theme}: --ap-color-${name} as outlined text is ` +
-            `${ratio.toFixed(2)}:1 on --ap-color-${surfaceName}`,
-        );
-      }
     }
   }
   rows.push(row);
 }
 
+// 4b. non-text tokens — a boundary only has to be perceivable
+const boundaries = [];
+for (const name of NON_TEXT) {
+  const entry = { name };
+  for (const theme of themes) {
+    const color = read(theme, `--ap-color-${name}`);
+    if (!color) {
+      fail(`tokens: --ap-color-${name} does not resolve to a color (${theme})`);
+      continue;
+    }
+
+    const [surfaceName, ratio] = worstSurface(theme, color);
+    entry[theme] = { surfaceName, ratio };
+
+    if (ratio < AA_NON_TEXT) {
+      fail(
+        `${theme}: --ap-color-${name} is ${ratio.toFixed(2)}:1 on ` +
+          `--ap-color-${surfaceName} (needs ${AA_NON_TEXT})`,
+      );
+    }
+  }
+  boundaries.push(entry);
+}
+
 // 5. text tokens against the surface they sit on
 for (const theme of themes) {
   const surface = read(theme, "--ap-color-surface");
-  for (const token of ["--ap-color-text", "--ap-color-text-muted"]) {
+  const onSurface = ["text", ...TEXT_ON_SURFACE];
+  for (const token of onSurface.map((n) => `--ap-color-${n}`)) {
     const color = read(theme, token);
     if (!color || !surface) continue;
     const ratio = contrast(color, surface);
@@ -278,6 +309,14 @@ for (const row of rows) {
   console.log(
     `  ${pad(row.name, 12)}${num(row.light.filled)}  ${num(row.dark.filled)}` +
       `       ${num(row.light.outlined)}  ${num(row.dark.outlined)}`,
+  );
+}
+
+console.log(`\n  ${pad("boundary", 12)}worst surface (needs ${AA_NON_TEXT})`);
+for (const entry of boundaries) {
+  if (!entry.light || !entry.dark) continue;
+  console.log(
+    `  ${pad(entry.name, 12)}${num(entry.light.ratio)}  ${num(entry.dark.ratio)}`,
   );
 }
 

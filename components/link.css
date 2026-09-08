@@ -1,0 +1,50 @@
+/* components/link.css */
+
+@layer components {
+  .ap-link {
+    --ap-link-color: var(--ap-color-primary);
+
+    color: var(--ap-link-color);
+
+    /* base/reset.css drops the underline from every anchor; the components
+       layer comes after base, so this wins without extra specificity */
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+
+    /* softened to a hint rather than a rule. 30% is the lightest that keeps
+       the line above 3:1 against the surface — it is the only non-color cue
+       telling the link apart from the text around it (WCAG 1.4.1) */
+    text-decoration-color: color-mix(in srgb, currentcolor, transparent 30%);
+
+    border-radius: var(--ap-border-radius-sm);
+    transition:
+      text-decoration-thickness 0.15s ease,
+      text-decoration-color 0.15s ease;
+  }
+
+  /* for links on an intent-colored surface, where the brand color would
+     disappear into the background */
+  .ap-link--inherit {
+    --ap-link-color: currentcolor;
+  }
+
+  /* Outside running text — nav, footer, card actions — position already tells
+     the link apart, so the underline is held back until interaction. The 3:1
+     rule for color-only links applies to links inside a block of text. */
+  .ap-link--standalone {
+    text-decoration-color: transparent;
+  }
+
+  /* states */
+  .ap-link:hover,
+  .ap-link:focus-visible {
+    text-decoration-color: currentcolor;
+    text-decoration-thickness: 2px;
+  }
+
+  .ap-link:focus-visible {
+    outline: 2px solid var(--ap-link-color);
+    outline-offset: 2px;
+  }
+}

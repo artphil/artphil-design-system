@@ -4,23 +4,23 @@
   :root {
     /* brand colors — the suffix names the theme the value belongs to, as in
        --ap-color-divider-light; the theme picks one under "dynamic colors" */
-    --ap-color-primary-light: #007a55;
+    --ap-color-primary-light: #007350;
     --ap-color-primary-dark: #00c389;
 
     --ap-color-secondary-light: #5c636a;
-    --ap-color-secondary-dark: #8e969d;
+    --ap-color-secondary-dark: #959da3;
 
-    --ap-color-accent-light: #c22a00;
-    --ap-color-accent-dark: #ff6035;
+    --ap-color-accent-light: #c02900;
+    --ap-color-accent-dark: #ff6f49;
 
     /* semantic colors — same per-theme pairing as the brand colors */
     --ap-color-success-light: #14713a;
     --ap-color-success-dark: #22c55e;
 
-    --ap-color-error-light: #c81e1e;
-    --ap-color-error-dark: #f25555;
+    --ap-color-error-light: #c41d1d;
+    --ap-color-error-dark: #f47474;
 
-    --ap-color-warning-light: #8f5a05;
+    --ap-color-warning-light: #8d5805;
     --ap-color-warning-dark: #f59e0b;
 
     --ap-color-info-light: #0369a1;
@@ -34,8 +34,13 @@
     --ap-color-text-muted-light: #626970;
     --ap-color-text-muted-dark: #949ba2;
 
+    /* divider is a decorative separator and may be subtle; border is the
+       boundary of an interactive control and has to clear 3:1 (WCAG 1.4.11) */
     --ap-color-divider-light: rgb(0 0 0 / 22%);
     --ap-color-divider-dark: rgb(255 255 255 / 22%);
+
+    --ap-color-border-light: #757e88;
+    --ap-color-border-dark: #748190;
 
     --ap-color-white-light: #fafbfc;
     --ap-color-white-medium: #f3f5f7;
@@ -113,6 +118,11 @@
     --ap-color-divider: light-dark(
       var(--ap-color-divider-light),
       var(--ap-color-divider-dark)
+    );
+
+    --ap-color-border: light-dark(
+      var(--ap-color-border-light),
+      var(--ap-color-border-dark)
     );
   }
 }

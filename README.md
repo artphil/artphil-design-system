@@ -111,8 +111,12 @@ texto escuro. Sobrescrever só o alias não funciona no tema escuro; o porquê
 está em [`architecture.md`](architecture.md).
 
 Escalas neutras: `--ap-color-white-light|medium|dark`,
-`--ap-color-black-light|medium|dark`,
-`--ap-color-divider-light|dark`.
+`--ap-color-black-light|medium|dark`.
+
+Linhas — `--ap-color-divider-light|dark` é o separador decorativo, e pode ser
+sutil; `--ap-color-border-light|dark` é o limite de um controle interativo, e
+respeita os 3:1 que o critério WCAG 1.4.11 exige. Os dois têm alias sem sufixo
+que segue o tema.
 
 Dinâmicos (mudam com o tema): `--ap-color-surface`,
 `--ap-color-surface-elevated`, `--ap-color-surface-sunken`,
@@ -181,6 +185,45 @@ o card controla apenas o espaço entre eles.
 A mídia sangra até a borda, acompanha o raio conforme a posição e recorta
 `img`, `svg` e `video` com `object-fit: cover`. O `-body` cresce para ocupar a
 sobra, o que alinha os rodapés entre cards de alturas diferentes.
+
+### Input
+
+`.ap-input` vale para `input`, `select` e `textarea`. Rótulo e mensagem de
+apoio são elementos comuns usando as classes semânticas de tipografia.
+
+```html
+<label class="ap-note" for="nome">Nome</label>
+<input class="ap-input" id="nome" placeholder="Placeholder" />
+```
+
+- Estado de erro: `.ap-input--error` ou `aria-invalid="true"`
+- Variáveis: `--ap-input-bg`, `--ap-input-text`, `--ap-input-border-color`,
+  `--ap-input-radius`, `--ap-input-padding`
+
+A borda usa `--ap-color-border`, e não `--ap-color-divider`: limite de controle
+de formulário precisa de 3:1 contra o fundo, e o divisor é semitransparente
+demais para isso.
+
+### Link
+
+`.ap-link` devolve o sublinhado que o reset remove e tira a cor de
+`--ap-link-color`, que por padrão é `--ap-color-primary`.
+
+```html
+<a class="ap-link" href="#">Link</a>
+<a class="ap-link ap-link--inherit" href="#">Sobre fundo colorido</a>
+```
+
+O sublinhado é suavizado e fica sólido no hover e no foco.
+
+- `--inherit` faz o link herdar a cor do contexto. É o que se usa sobre uma
+  superfície de intent, onde a cor de marca desapareceria no fundo.
+- `--standalone` segura o sublinhado até a interação. É para link fora de texto
+  corrido — navegação, rodapé, ação de card — onde a posição já distingue.
+
+Dentro de um parágrafo o sublinhado fica: o link tem 2.81:1 contra o texto ao
+redor no tema claro e 2.10:1 no escuro, abaixo dos 3:1 que a cor precisaria
+para distinguir sozinha.
 
 ## Suporte de navegador
 

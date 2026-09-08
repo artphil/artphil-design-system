@@ -1,0 +1,57 @@
+/* components/input.css */
+
+@layer components {
+  .ap-input {
+    --ap-input-bg: var(--ap-color-surface);
+    --ap-input-text: var(--ap-color-text);
+    --ap-input-border-color: var(--ap-color-border);
+    --ap-input-radius: var(--ap-border-radius);
+    --ap-input-padding: var(--ap-spacing-sm);
+
+    padding: var(--ap-input-padding);
+
+    /* form controls inherit none of these on their own */
+    font-family: var(--ap-font-family);
+    font-size: var(--ap-font-size-md);
+    line-height: var(--ap-line-height);
+
+    color: var(--ap-input-text);
+    background: var(--ap-input-bg);
+    border: 1px solid var(--ap-input-border-color);
+    border-radius: var(--ap-input-radius);
+
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease;
+  }
+
+  /* Firefox dims the placeholder on its own */
+  .ap-input::placeholder {
+    color: var(--ap-color-text-muted);
+    opacity: 1;
+  }
+
+  /* :where() keeps this at the same specificity as the block */
+  .ap-input:where(textarea) {
+    resize: vertical;
+  }
+
+  /* states */
+  .ap-input:focus-visible {
+    outline: 2px solid var(--ap-input-border-color);
+    outline-offset: 2px;
+  }
+
+  .ap-input--error,
+  .ap-input[aria-invalid="true"] {
+    --ap-input-border-color: var(--ap-color-error);
+  }
+
+  .ap-input:disabled {
+    --ap-input-bg: var(--ap-color-surface-sunken);
+    --ap-input-text: var(--ap-color-text-muted);
+    --ap-input-border-color: var(--ap-color-divider);
+
+    cursor: not-allowed;
+  }
+}

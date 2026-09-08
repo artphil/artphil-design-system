@@ -48,6 +48,12 @@ strong {
   height: 80px;
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ap-spacing-xs);
+}
+
 .component-row {
   display: flex;
   gap: var(--ap-spacing-md);
@@ -81,9 +87,9 @@ footer {
   margin-top: var(--ap-spacing-xl);
   padding: var(--ap-spacing-md);
   border-top: 1px solid var(--ap-color-divider);
-  background: var(--ap-color-primary);
+  background: var(--ap-color-surface-sunken);
   width: 100%;
   text-align: center;
-  color: var(--ap-color-text-contrast);
+  color: var(--ap-color-text);
   border-radius: var(--ap-border-radius) var(--ap-border-radius) 0 0;
 }
