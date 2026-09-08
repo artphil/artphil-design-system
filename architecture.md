@@ -502,3 +502,78 @@ thing a consumer does is fight one of them.
 **The rule generalizes.** Badge, dialog and any future component with text
 inherit this constraint — structure is the component's business, type is the
 typography layer's.
+
+---
+
+## ADR-009 — A link is told apart by its underline, not by its color
+
+**Date:** 2026-09-08 · **Status:** accepted · **Baseline:** v2.0.0
+
+### Context
+
+`base/reset.css` strips the underline from every anchor, so a link has to earn
+its distinction back. The obvious answer is color alone, and the palette does
+not support it.
+
+WCAG 1.4.1 — in the failure condition catalogued as F73 — requires that a link
+distinguished only by color contrast at least 3:1 **against the text around
+it**, not just against the background. Measured against `--ap-color-text`:
+
+|       | link vs surrounding text |
+| ----- | ------------------------ |
+| light | 2.81                     |
+| dark  | 2.10                     |
+
+Both short, the dark theme badly so. Inside a paragraph, a link without an
+underline would be invisible to a reader who does not separate those hues.
+
+### Decision
+
+The underline stays by default, softened rather than removed:
+
+```css
+text-decoration-color: color-mix(in srgb, currentcolor, transparent 30%);
+text-underline-offset: 0.2em;
+```
+
+30% is not a round number picked for looks. It is the lightest mix that keeps
+the line itself above 3:1 against the surface — 3.09 in the light theme, 4.20
+in the dark. Softer than that, and the only non-color cue on the page becomes
+one a reader can miss, which defeats the point of keeping it. The line turns
+solid on hover and focus.
+
+Two modifiers carve out the cases where the default is wrong:
+
+- `--standalone` holds the underline back until interaction. F73 governs links
+  _inside a block of text_; in navigation, a footer or a card action, position
+  already separates the link from its surroundings.
+- `--inherit` drops the brand color for `currentcolor`, for links sitting on an
+  intent-colored surface.
+
+### Why primary and not accent
+
+Contrast does not decide it: against surrounding text the two are a tie in the
+light theme (2.81 against 2.80), and accent is only marginally better in the
+dark (2.52 against 2.10). Neither reaches 3:1.
+
+Hue decides it. `accent` sits 12.8° from `error` in the light theme and 12.5°
+in the dark — close enough that a link in accent would read as an error
+message. The warm end of the palette is already spoken for by two semantic
+roles, and a link is navigation, not state.
+
+### Consequences
+
+**On a saturated intent background, no link color works.** For a link to clear
+AA against `--ap-color-primary` it needs a relative luminance of at least
+0.753 in the light theme; to sit 3:1 from the near-white text beside it, at
+most 0.288. The ranges do not meet, in either theme. Such a surface leaves two
+options: `--inherit` with the underline kept, or a different surface.
+
+The documentation footer took the second route and moved to
+`--ap-color-surface-sunken`, which puts the link back on the brand color at
+4.87 and 5.89 against the background.
+
+**A second non-color cue can stand in for the underline.** The footer credit
+reads "by **Artphil**" with the link in `<strong>`, so weight separates it even
+with `--standalone` applied. Remove the `<strong>` and the underline has to
+come back.

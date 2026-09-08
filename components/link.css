@@ -11,10 +11,6 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
-
-    /* softened to a hint rather than a rule. 30% is the lightest that keeps
-       the line above 3:1 against the surface — it is the only non-color cue
-       telling the link apart from the text around it (WCAG 1.4.1) */
     text-decoration-color: color-mix(in srgb, currentcolor, transparent 30%);
 
     border-radius: var(--ap-border-radius-sm);
@@ -29,9 +25,7 @@
     --ap-link-color: currentcolor;
   }
 
-  /* Outside running text — nav, footer, card actions — position already tells
-     the link apart, so the underline is held back until interaction. The 3:1
-     rule for color-only links applies to links inside a block of text. */
+  /* for links outside running text — navigation, footers, card actions */
   .ap-link--standalone {
     text-decoration-color: transparent;
   }
