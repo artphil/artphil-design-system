@@ -1,0 +1,11 @@
+/* tokens/radius.css */
+
+@layer tokens {
+  :root {
+    --ap-border-radius-sm: 4px;
+    --ap-border-radius: 8px;
+    --ap-border-radius-lg: 16px;
+    --ap-border-radius-pill: 999px;
+    --ap-border-radius-circle: 50%;
+  }
+}

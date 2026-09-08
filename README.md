@@ -110,13 +110,21 @@ Dinâmicos (mudam com o tema): `--ap-color-surface`,
 
 ### Espaçamento
 
-`--ap-spacing-xs` (4px), `-sm` (8px), `-md` (16px), `-lg` (24px), `-xl` (32px)
-e `--ap-border-radius` (8px).
+`--ap-spacing-xs` (4px), `-sm` (8px), `-md` (16px), `-lg` (24px), `-xl` (32px).
+
+### Raio de borda
+
+`--ap-border-radius` (8px) é o default. A escala completa tem
+`--ap-border-radius-sm` (4px), `-lg` (16px), `-pill` (999px) e `-circle`
+(50%).
 
 ### Tipografia
 
 `--ap-font-family`, `--ap-font-weight-normal|bold` e a escala
 `--ap-font-size-xs|sm|md|lg|xl`, derivada de `--ap-font-size-md` (16px).
+
+Entrelinha: `--ap-line-height` (1.5) é o default; `--ap-line-height-snug`
+(1.3) e `--ap-line-height-tight` (1.2) são para títulos.
 
 ## Componentes
 
@@ -137,6 +145,26 @@ Combine `.ap-button` com uma intenção e uma variante:
 - Intenções: `.ap-button--primary`, `--secondary`, `--accent`, `--success`,
   `--error`, `--warning`, `--info`
 - Variantes: `.ap-button--filled`, `.ap-button--outlined`
+
+## Suporte de navegador
+
+|               | mínimo |
+| ------------- | ------ |
+| Chrome / Edge | 123    |
+| Firefox       | 120    |
+| Safari        | 17.5   |
+
+O requisito é definido por `light-dark()`, usado em todos os tokens dinâmicos
+de cor e disponível desde maio de 2024. As demais features modernas da lib têm
+suporte mais antigo: `color-mix()` desde 2023 e `@layer` desde o início de 2022.
+
+`light-dark()` não tem comportamento de fallback. Sem suporte, a substituição
+de `var(--ap-color-primary)` insere uma função desconhecida na propriedade de
+destino, a declaração torna-se inválida em tempo de computação e assume
+`unset`, removendo as cores de fundo e de texto dos componentes.
+
+Ao adicionar features de CSS, verificar se o requisito mínimo acima permanece
+válido.
 
 ## Documentação
 
