@@ -2,6 +2,9 @@
 
 Design System padrão para meus projetos.
 
+**[▶ Abrir o playground](https://artphil.github.io/artphil-design-system/docs/)**
+— tokens, tipografia e componentes renderizados, com alternância de tema.
+
 ## Instalação
 
 ```sh
@@ -168,8 +171,14 @@ válido.
 
 ## Documentação
 
-A página de exemplos vive em [`docs/`](docs/index.html). As decisões de
-arquitetura estão em [`architecture.md`](architecture.md).
+O playground fica em
+[artphil.github.io/artphil-design-system/docs/](https://artphil.github.io/artphil-design-system/docs/)
+e é gerado a partir de [`docs/`](https://github.com/artphil/artphil-design-system/tree/main/docs).
+Ele lê os tokens do CSS em tempo de execução, então reflete o estado do
+repositório.
+
+As decisões de arquitetura estão em
+[`architecture.md`](https://github.com/artphil/artphil-design-system/blob/main/architecture.md).
 
 ## Desenvolvimento
 
