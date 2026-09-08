@@ -2,18 +2,12 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Artphil Design System</title>
 
-    <script>
-      const isDev =
-        window.location.hostname === "localhost" ||
-        window.location.hostname === "127.0.0.1";
-      const ds = isDev ? ".." : "https://unpkg.com/artphil-design-system";
-      // o reset é opt-in: esta página quer os defaults de fluxo
-      document.write(`<link rel="stylesheet" href="${ds}/base/reset.css" />`);
-      document.write(`<link rel="stylesheet" href="${ds}/index.css" />`);
-    </script>
-
+    <!-- o reset é opt-in: esta página quer os defaults de fluxo -->
+    <link rel="stylesheet" href="../base/reset.css" />
+    <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./doc.css" />
   </head>
 
