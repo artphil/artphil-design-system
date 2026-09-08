@@ -19,6 +19,13 @@ import "artphil-design-system";
 
 O entrypoint carrega `tokens`, `theme` e `components`, nesta ordem.
 
+O que o import padrão resolve é `dist/artphil-design-system.css`, um arquivo
+único gerado no empacotamento com todos os `@import` já resolvidos. Isso
+importa para quem carrega a lib por `<link>` ou CDN, sem bundler: a árvore de
+fontes tem três níveis de `@import` encadeados, e o navegador só descobre cada
+nível depois de baixar e parsear o anterior. A fonte granular continua
+acessível em `artphil-design-system/index.css`.
+
 ### Camadas
 
 Todo CSS da lib vive em `@layer`, na ordem `tokens, base, theme, components`.
@@ -186,7 +193,11 @@ As decisões de arquitetura estão em
 npm install
 npm run check    # formatação, lint e guard de tokens
 npm run format   # aplica o prettier
+npm run build    # gera dist/artphil-design-system.css
 ```
+
+O `build` roda automaticamente no `prepack`, então o `dist/` não é versionado —
+existe apenas no pacote publicado.
 
 O `check` roda três coisas, e é o que a CI e o `prepublishOnly` executam:
 

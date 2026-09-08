@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Design System for Artphil's projects",
   "exports": {
-    ".": "./index.css",
+    ".": "./dist/artphil-design-system.css",
     "./index.css": "./index.css",
     "./tokens": "./tokens/index.css",
     "./tokens/*.css": "./tokens/*.css",
@@ -13,14 +13,16 @@
     "./theme/*.css": "./theme/*.css",
     "./components": "./components/index.css",
     "./components/*.css": "./components/*.css",
+    "./dist/*.css": "./dist/*.css",
     "./package.json": "./package.json"
   },
-  "main": "index.css",
-  "style": "index.css",
+  "main": "dist/artphil-design-system.css",
+  "style": "dist/artphil-design-system.css",
   "sideEffects": [
     "*.css"
   ],
   "files": [
+    "dist",
     "index.css",
     "tokens",
     "base",
@@ -28,11 +30,13 @@
     "components"
   ],
   "scripts": {
+    "build": "node scripts/build-css.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint:css": "stylelint \"**/*.css\"",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check": "npm run format:check && npm run lint:css && npm run check:tokens",
+    "prepack": "npm run build",
     "prepublishOnly": "npm run check"
   },
   "repository": {
