@@ -1,0 +1,96 @@
+/* components/card.css */
+
+@layer components {
+  .ap-card {
+    --ap-card-bg: var(--ap-color-surface);
+    --ap-card-border-color: var(--ap-color-divider);
+    --ap-card-radius: var(--ap-border-radius);
+    --ap-card-padding: var(--ap-spacing-md);
+    --ap-card-gap: var(--ap-spacing-md);
+    --ap-card-media-ratio: 16 / 9;
+    --ap-card-media-bg: transparent;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--ap-card-gap);
+
+    padding: var(--ap-card-padding);
+    background: var(--ap-card-bg);
+    border: 1px solid var(--ap-card-border-color);
+    border-radius: var(--ap-card-radius);
+  }
+
+  /* media — bleeds past the card padding to meet the border */
+  .ap-card-media {
+    aspect-ratio: var(--ap-card-media-ratio);
+    margin-inline: calc(var(--ap-card-padding) * -1);
+    background: var(--ap-card-media-bg);
+  }
+
+  .ap-card-media:first-child {
+    margin-block-start: calc(var(--ap-card-padding) * -1);
+    border-radius: var(--ap-card-radius) var(--ap-card-radius) 0 0;
+  }
+
+  .ap-card-media:last-child {
+    margin-block-end: calc(var(--ap-card-padding) * -1);
+    border-radius: 0 0 var(--ap-card-radius) var(--ap-card-radius);
+  }
+
+  .ap-card-media:only-child {
+    border-radius: var(--ap-card-radius);
+  }
+
+  /* :where() keeps this at zero specificity, so a project overrides it
+     without having to outbid the library */
+  .ap-card-media :where(img, svg, video) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+
+  /* sections — layout only; text keeps coming from the typography classes */
+  .ap-card-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ap-spacing-xs);
+  }
+
+  .ap-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ap-spacing-sm);
+
+    /* fills the leftover height so footers line up across a row of cards */
+    flex: 1;
+  }
+
+  .ap-card-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--ap-spacing-sm);
+  }
+
+  /* surfaces */
+  .ap-card--elevated {
+    --ap-card-bg: var(--ap-color-surface-elevated);
+  }
+
+  .ap-card--sunken {
+    --ap-card-bg: var(--ap-color-surface-sunken);
+  }
+
+  /* rules between sections, inset to the content width */
+  .ap-card--divided .ap-card-header {
+    padding-block-end: var(--ap-card-gap);
+    border-block-end: 1px solid var(--ap-card-border-color);
+  }
+
+  .ap-card--divided .ap-card-footer {
+    padding-block-start: var(--ap-card-gap);
+    border-block-start: 1px solid var(--ap-card-border-color);
+  }
+}

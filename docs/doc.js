@@ -11,12 +11,12 @@ const COLOR_ORDER = [
   "info",
 ];
 
-/* Fluxo principal */
+/* Main flow */
 
-// Executa depois que o CSS carregar
+// runs once the stylesheets have loaded
 window.addEventListener("load", renderComponents);
 
-/* Funções */
+/* Functions */
 
 function renderComponents() {
   renderColors();
@@ -25,7 +25,7 @@ function renderComponents() {
 
 function toggleTheme() {
   const html = document.documentElement;
-  // sem atributo, o tema em vigor é o do sistema
+  // with no attribute set, the theme in effect is the system one
   const current =
     html.getAttribute("data-theme") ??
     (window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -34,10 +34,10 @@ function toggleTheme() {
   html.setAttribute("data-theme", current === "dark" ? "light" : "dark");
 }
 
-/* Funções auxiliares */
+/* Helpers */
 
 function renderColors() {
-  // Aliases dinâmicos: já aparecem representados pelas cores base
+  // dynamic aliases: already represented by the base colors
   const ignore = [
     "color-surface",
     "color-surface-elevated",
@@ -115,8 +115,8 @@ function resolveCalcValue(value) {
   return resolved;
 }
 
-// light-dark() só resolve quando usado numa propriedade de verdade: o valor
-// computado da custom property ainda traz a função inteira
+// light-dark() only resolves where the value is used, so the computed custom
+// property still carries the whole function
 function resolveColorValue(value) {
   const el = document.createElement("div");
   el.style.color = value;
@@ -138,14 +138,14 @@ function rgbToHex(color) {
 
 function createColorCard(name, value) {
   const card = document.createElement("div");
-  card.className = "color-card";
+  card.className = "ap-card ap-card--elevated color-card";
 
   const preview = document.createElement("div");
-  preview.className = "color-preview";
+  preview.className = "ap-card-media color-preview";
   preview.style.background = value;
 
   const info = document.createElement("div");
-  info.className = "color-info";
+  info.className = "ap-card-body ap-note";
   info.innerHTML = `
       <strong>${name.replace(DS_PREFIX + "color-", "")}</strong><br/>
       ${name}<br/>
@@ -172,15 +172,15 @@ function renderTypography() {
 
 function createTypographyCard(name, value) {
   const card = document.createElement("div");
-  card.className = "typography-card";
+  card.className = "ap-card ap-card--elevated ap-card--divided typography-card";
 
   const preview = document.createElement("div");
-  preview.className = "typography-preview";
+  preview.className = "ap-card-body";
   preview.style.fontSize = value;
   preview.textContent = "The quick brown fox jumps over the lazy dog";
 
   const info = document.createElement("div");
-  info.className = "typography-info";
+  info.className = "ap-card-footer ap-note";
   info.innerHTML = `
       <strong>${name.replace(DS_PREFIX + "font-size-", "")}</strong><br/>
       ${name}<br/>

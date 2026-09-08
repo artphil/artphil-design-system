@@ -411,3 +411,94 @@ to resolve colors through a probe element, the way it already did for `calc()`.
 and Safari 17.5 — newer than `color-mix()` and `@layer`, which the library
 already required. This raises the floor, and it was accepted because the
 library has one consumer.
+
+---
+
+## ADR-007 — Element classes use a single dash
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v2.0.0
+
+### Context
+
+ADR-005 settled modifiers as `--`, but the library had no multi-part
+components, so it never had to name an _element_. The card is the first one:
+it needs names for its media band, header, body and footer.
+
+### Decision
+
+Elements take a single dash, modifiers keep the double:
+
+```
+.ap-card            block
+.ap-card-header     element
+.ap-card--elevated  modifier
+```
+
+The two forms stay unambiguous because the separators differ, and the
+`selector-class-pattern` already enforced by stylelint accepts both without
+changes.
+
+### Alternatives rejected
+
+**BEM's `__` for elements.** The canonical spelling, and unambiguous, but the
+author preferred the lighter form and the distinction is already carried by
+`--`.
+
+**Styling native elements by position** (`.ap-card > header`). Drops the class
+names entirely, but ties the library to the consumer's markup structure and
+forces `<header>`/`<footer>` semantics onto a component where they are
+debatable.
+
+### Consequences
+
+**A block name cannot collide with an element name.** `.ap-card-header` reads
+as "the header element of card", so a future block named `card-header` is not
+available. Not a practical constraint at this size.
+
+**The pattern extends to whatever comes next** — badge, dialog and icon button
+all have parts, and now there is one answer for how to name them.
+
+---
+
+## ADR-008 — The card carries structure, not typography
+
+**Date:** 2026-09-07 · **Status:** accepted · **Baseline:** v2.0.0
+
+### Context
+
+A card is where text levels pile up: an overline, a title, body copy, a
+caption in the footer. The obvious move is for the component to style them —
+`.ap-card h3 { … }`, or a `.ap-card-title` with its own size and weight.
+
+The library already answers that question elsewhere. `components/typography.css`
+defines eight semantic classes covering exactly those levels.
+
+### Decision
+
+The card sets surface, border, radius, spacing and grouping. It never sets
+`font-size`, `font-weight`, `line-height` or `font-family`. Text inside a card
+uses the same classes it would use anywhere else.
+
+```html
+<div class="ap-card-header">
+  <span class="ap-kicker">Categoria</span>
+  <h3 class="ap-heading3">Título</h3>
+</div>
+```
+
+What the card does own is the _space between_ those levels: `--ap-card-gap`
+between sections, and a tighter gap inside the header.
+
+### Consequences
+
+**One source of truth for type.** A project that changes `--ap-font-size-md`
+sees cards follow, with nothing to keep in sync.
+
+**More classes in the markup.** The header needs `.ap-kicker` and
+`.ap-heading3` spelled out rather than inheriting from the card. Accepted: the
+alternative is two competing definitions of what a title is, and the first
+thing a consumer does is fight one of them.
+
+**The rule generalizes.** Badge, dialog and any future component with text
+inherit this constraint — structure is the component's business, type is the
+typography layer's.

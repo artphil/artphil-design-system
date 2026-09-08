@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Artphil Design System</title>
 
-    <!-- o reset é opt-in: esta página quer os defaults de fluxo -->
+    <!-- the reset is opt-in; this page wants the flow defaults -->
     <link rel="stylesheet" href="../base/reset.css" />
     <link rel="stylesheet" href="../index.css" />
     <link rel="stylesheet" href="./doc.css" />
@@ -23,9 +23,9 @@
     </header>
 
     <main>
-      <!-- ================= CORES ================= -->
+      <!-- ================= COLORS ================= -->
       <div class="section">
-        <h2 class="ap-heading2">Cores</h2>
+        <h2 class="ap-heading2">Colors</h2>
         <div class="box">
           <div class="grid" id="colors-grid">
             <div class="color-card">
@@ -42,9 +42,9 @@
         </div>
       </div>
 
-      <!-- ================= TIPOGRAFIA ================= -->
+      <!-- ================= TYPOGRAPHY ================= -->
       <div class="section">
-        <h2 class="ap-heading2">Tipografia</h2>
+        <h2 class="ap-heading2">Typography</h2>
         <div class="box">
           <h3 class="ap-heading3">Tokens</h3>
           <div class="box" id="typography-grid"></div>
@@ -63,9 +63,9 @@
         </div>
       </div>
 
-      <!-- ================= BOTÕES ================= -->
+      <!-- ================= BUTTONS ================= -->
       <div class="section">
-        <h2 class="ap-heading2">Botões</h2>
+        <h2 class="ap-heading2">Buttons</h2>
 
         <div class="box">
           <h3 class="ap-heading3">Default</h3>
@@ -142,39 +142,157 @@
         <h2 class="ap-heading2">Cards</h2>
 
         <div class="box">
-          <div class="component-row">
-            <div class="card" style="width: 200px">
-              <h3>Título</h3>
-              <p>Conteúdo do card</p>
+          <h3 class="ap-heading3">Structure</h3>
+          <p class="ap-note">
+            <code>.ap-card</code> with the optional parts <code>-media</code>,
+            <code>-header</code>, <code>-body</code> and <code>-footer</code>,
+            in any order. The <code>-body</code> fills the leftover height, so
+            footers line up across a row.
+          </p>
+
+          <div class="grid">
+            <div class="ap-card">
+              <div class="ap-card-header">
+                <span class="ap-kicker">Header</span>
+                <h4 class="ap-heading3">Card title</h4>
+              </div>
+              <div class="ap-card-body">
+                <p class="ap-body">
+                  Body copy. Text levels come from the semantic typography
+                  classes.
+                </p>
+              </div>
+              <div class="ap-card-footer">
+                <button class="ap-button ap-button--primary ap-button--filled">
+                  Action
+                </button>
+                <span class="ap-caption">Footer</span>
+              </div>
             </div>
 
-            <div class="card" style="width: 200px">
-              <h3>Outro Card</h3>
-              <p>Mais conteúdo</p>
+            <div class="ap-card">
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">Header and body</h4>
+              </div>
+              <div class="ap-card-body">
+                <p class="ap-body">Short text.</p>
+                <p class="ap-note">A supporting note.</p>
+              </div>
+            </div>
+
+            <div class="ap-card">
+              <div class="ap-card-body">
+                <p class="ap-body">Body only.</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="ap-heading3">Media</h3>
+          <p class="ap-note">
+            Bleeds to the card edge and follows its radius. Takes a color
+            through <code>--ap-card-media-bg</code>, or an image, cropped with
+            <code>object-fit: cover</code>. Its proportion comes from
+            <code>--ap-card-media-ratio</code>.
+          </p>
+
+          <div class="grid">
+            <div class="ap-card">
+              <div
+                class="ap-card-media"
+                style="--ap-card-media-bg: var(--ap-color-primary)"
+              ></div>
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">Color media</h4>
+              </div>
+            </div>
+
+            <div class="ap-card">
+              <div class="ap-card-media">
+                <svg viewBox="0 0 160 90" role="img" aria-label="Example">
+                  <rect width="160" height="90" fill="var(--ap-color-info)" />
+                  <circle
+                    cx="120"
+                    cy="24"
+                    r="16"
+                    fill="var(--ap-color-accent)"
+                  />
+                  <path
+                    d="M0 90 L56 34 L112 90 Z"
+                    fill="var(--ap-color-success)"
+                  />
+                </svg>
+              </div>
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">SVG media</h4>
+              </div>
+            </div>
+
+            <div class="ap-card">
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">Media last</h4>
+              </div>
+              <div
+                class="ap-card-media"
+                style="--ap-card-media-bg: var(--ap-color-warning)"
+              ></div>
+            </div>
+          </div>
+
+          <h3 class="ap-heading3">Surfaces and rules</h3>
+
+          <div class="grid">
+            <div class="ap-card ap-card--elevated">
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">Elevated</h4>
+              </div>
+              <div class="ap-card-body">
+                <p class="ap-note">surface-elevated</p>
+              </div>
+            </div>
+
+            <div class="ap-card ap-card--sunken">
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">Sunken</h4>
+              </div>
+              <div class="ap-card-body">
+                <p class="ap-note">surface-sunken</p>
+              </div>
+            </div>
+
+            <div class="ap-card ap-card--divided">
+              <div class="ap-card-header">
+                <h4 class="ap-heading3">Divided</h4>
+              </div>
+              <div class="ap-card-body">
+                <p class="ap-note">Rules between sections.</p>
+              </div>
+              <div class="ap-card-footer">
+                <span class="ap-caption">Footer</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ================= FORMULÁRIOS ================= -->
+      <!-- ================= FORMS ================= -->
       <div class="section">
-        <h2 class="ap-heading2">Formulários</h2>
+        <h2 class="ap-heading2">Forms</h2>
 
         <div class="box">
           <div class="component-row">
-            <input type="text" placeholder="Input padrão" class="input" />
+            <input type="text" placeholder="Default input" class="input" />
             <select class="input">
-              <option>Opção 1</option>
-              <option>Opção 2</option>
+              <option>Option 1</option>
+              <option>Option 2</option>
             </select>
             <textarea class="input" placeholder="Textarea"></textarea>
           </div>
         </div>
       </div>
 
-      <!-- ================= UTILITÁRIOS ================= -->
+      <!-- ================= UTILITIES ================= -->
       <div class="section">
-        <h2 class="ap-heading2">Utilitários</h2>
+        <h2 class="ap-heading2">Utilities</h2>
 
         <div class="box">
           <div class="component-row">

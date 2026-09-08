@@ -156,6 +156,32 @@ Combine `.ap-button` com uma intenção e uma variante:
   `--error`, `--warning`, `--info`
 - Variantes: `.ap-button--filled`, `.ap-button--outlined`
 
+### Card
+
+`.ap-card` com as partes `-media`, `-header`, `-body` e `-footer`, todas
+opcionais e em qualquer ordem:
+
+```html
+<div class="ap-card">
+  <div class="ap-card-media"></div>
+  <div class="ap-card-header"><h3 class="ap-heading3">Título</h3></div>
+  <div class="ap-card-body"><p class="ap-body">Conteúdo</p></div>
+  <div class="ap-card-footer"><button class="ap-button">Ação</button></div>
+</div>
+```
+
+O card não define tipografia. Os níveis de texto vêm das classes semânticas, e
+o card controla apenas o espaço entre eles.
+
+- Modificadores: `.ap-card--elevated`, `.ap-card--sunken`, `.ap-card--divided`
+- Variáveis: `--ap-card-bg`, `--ap-card-border-color`, `--ap-card-radius`,
+  `--ap-card-padding`, `--ap-card-gap`, `--ap-card-media-ratio`,
+  `--ap-card-media-bg`
+
+A mídia sangra até a borda, acompanha o raio conforme a posição e recorta
+`img`, `svg` e `video` com `object-fit: cover`. O `-body` cresce para ocupar a
+sobra, o que alinha os rodapés entre cards de alturas diferentes.
+
 ## Suporte de navegador
 
 |               | mínimo |

@@ -34,37 +34,18 @@ strong {
   gap: var(--ap-spacing-md);
 }
 
-.color-card {
-  border-radius: var(--ap-border-radius);
-  overflow: hidden;
-  border: 1px solid var(--ap-color-divider);
+/* the docs cards are .ap-card; only the scale and the fixed-height colour
+   band are tuned here, both through variables */
+.color-card,
+.typography-card {
+  --ap-card-padding: var(--ap-spacing-sm);
+  --ap-card-gap: var(--ap-spacing-sm);
 }
 
 .color-preview {
+  --ap-card-media-ratio: auto;
+
   height: 80px;
-}
-
-.color-info {
-  padding: var(--ap-spacing-sm);
-  font-size: var(--ap-font-size-sm);
-  background: var(--ap-color-surface-elevated);
-}
-
-.typography-card {
-  border-radius: var(--ap-border-radius);
-  overflow: hidden;
-  border: 1px solid var(--ap-color-divider);
-}
-
-.typography-preview {
-  padding: var(--ap-spacing-sm);
-  background: var(--ap-color-surface);
-}
-
-.typography-info {
-  padding: var(--ap-spacing-sm);
-  font-size: var(--ap-font-size-sm);
-  background: var(--ap-color-surface-elevated);
 }
 
 .component-row {
